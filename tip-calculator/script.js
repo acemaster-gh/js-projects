@@ -22,9 +22,7 @@ calculateBtn.addEventListener('click', function() {
 
 
    totalAmount.style.color = "white"; 
-    totalAmount.textContent = `Total: ₹${total.toFixed(2)}`;
-    
-totalAmount.textContent = `Total: ${total.toFixed(2)}`;
+   totalAmount.textContent = `Total: ${total.toFixed(2)}`;
 
 
 });
