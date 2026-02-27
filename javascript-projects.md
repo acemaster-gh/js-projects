@@ -150,6 +150,99 @@ Just tell your AI assistant "help me build project #X" and go!
 110. Personal Finance Year in Review — visualize your year with charts
 
 ---
+## 🔺 STAGE 6 — Deep JavaScript & Professional Skills (Projects 111–130)
+*Goal: Cover the language deeply, write reliable code, and work like a professional*
+
+---
+
+**111. Closure & Scope Explorer**
+A visual interactive page that creates closures step by step — buttons that show what variables are "trapped" inside each function, counters made with closures, and a live log of what's accessible where.
+*Teaches: closures, lexical scope, how functions remember their environment, practical closure use cases.*
+
+**112. Event Loop Visualizer**
+Schedule `setTimeout`, `Promise.then`, and regular function calls via buttons. Show a live animated diagram of the Call Stack, Callback Queue, and Microtask Queue executing in order.
+*Teaches: how the JavaScript event loop works, macrotasks vs microtasks, why Promises resolve before setTimeout.*
+
+**113. Hoisting & `this` Lab**
+A series of interactive code snippets you can run in the browser — each demonstrating one tricky behaviour: `var` hoisting, function hoisting, `this` in regular vs arrow functions, `this` in callbacks.
+*Teaches: hoisting rules, `this` binding (implicit, explicit, arrow), common beginner traps.*
+
+**114. Prototype Chain Explorer**
+Build objects manually using `Object.create()`. Visualise the prototype chain on screen — show which object a property is found on. Then do the same with ES6 classes to show they're the same thing.
+*Teaches: prototypal inheritance, `__proto__`, `Object.create()`, how classes work under the hood.*
+
+**115. Sorting Algorithm Visualizer**
+Animated visualizer for Bubble Sort, Selection Sort, Insertion Sort, and Merge Sort. Bars move as the algorithm runs. Speed control. Step-by-step mode. Show comparisons and swaps counter.
+*Teaches: sorting algorithms, time complexity intuition, `async/await` for animation pacing, array manipulation.*
+
+**116. Searching Algorithm Visualizer**
+Visual demo of Linear Search and Binary Search on an array of numbered blocks. Highlight current element being checked. Show how binary search eliminates half on each step.
+*Teaches: searching algorithms, why binary search requires sorted data, Big O notation basics.*
+
+**117. Linked List Playground**
+Build a singly and doubly linked list from scratch in JS. A visual UI lets you insert at head/tail/index, delete by value, reverse the list, and search. Show each node's `next`/`prev` pointers.
+*Teaches: data structures, pointer/reference logic, building classes with `next` property, traversal.*
+
+**118. Stack & Queue Visualizer**
+Two side-by-side panels — one shows a Stack (push/pop), one shows a Queue (enqueue/dequeue). Each operation animates the blocks. Include a practical example: Stack for undo/redo, Queue for a task line.
+*Teaches: stack and queue data structures, real-world use cases, array methods as stack/queue.*
+
+**119. Recursion Visualizer**
+Choose a classic recursive problem: factorial, Fibonacci, flatten nested array, or tree traversal. Show each recursive call being added to and removed from a visual call stack, step by step.
+*Teaches: recursion, base cases, how the call stack grows and unwinds, stack overflow concept.*
+
+**120. Binary Search Tree**
+Build a BST class from scratch. UI lets you insert, search, and delete nodes. Animate the tree structure on a canvas or using DOM nodes. Show inorder, preorder, and postorder traversal results.
+*Teaches: tree data structures, BST rules, recursion in practice, DOM-based graph rendering.*
+
+---
+
+**121. Unit Testing with Jest**
+Take an existing project's pure logic functions (e.g. from the calculator, tip calculator, or quiz app) and write a full Jest test suite for them — happy path, edge cases, and error cases.
+*Teaches: unit testing philosophy, `describe`/`it`/`expect`, edge case thinking, running tests via npm scripts.*
+
+**122. DOM Testing with Testing Library**
+Write tests for an interactive UI component (e.g. the to-do list or accordion) — test that clicking buttons updates the DOM correctly, without testing implementation details.
+*Teaches: DOM testing, `@testing-library/dom`, `getByRole`/`getByText`, event simulation, what to test.*
+
+**123. End-to-End Testing with Playwright**
+Write E2E tests for a complete user flow (e.g. add a task, mark it done, reload the page, verify it persists). Run the tests headlessly via the command line.
+*Teaches: E2E testing, Playwright setup, user-centric test writing, selector strategies, test reliability.*
+
+---
+
+**124. ESLint + Prettier Project Setup**
+Take an existing project and add ESLint (with a good rule set) and Prettier (for formatting). Fix all the errors it flags. Set up a `lint` npm script. Add Husky to block bad commits.
+*Teaches: linting, code style enforcement, pre-commit hooks, developer workflow, reading rule documentation.*
+
+**125. NPM Scripts & Build Pipeline**
+Add a proper `package.json` to a project with scripts for `dev`, `build`, `lint`, and `test`. Use Vite as a bundler. Split code into ES modules with `import`/`export`. Understand what the built output looks like.
+*Teaches: npm scripts, ES modules, bundling, `import`/`export`, production vs development builds.*
+
+---
+
+**126. Web Worker: Heavy Computation Demo**
+Build a UI with a "Sort 1 million numbers" button. First run it on the main thread (UI freezes). Then move it to a Web Worker (UI stays responsive). Show the difference visually.
+*Teaches: Web Workers, `new Worker()`, `postMessage`, why blocking the main thread is bad, concurrency in JS.*
+
+**127. IndexedDB Notebook**
+A notes app that stores data in IndexedDB instead of localStorage. Supports storing large objects. Implement create, read, update, delete using the raw IndexedDB API (no library).
+*Teaches: IndexedDB API, object stores, transactions, cursors, when to use IndexedDB over localStorage.*
+
+**128. Web Components Library**
+Build 3 reusable custom HTML elements from scratch: a `<custom-tooltip>`, a `<star-rating>`, and a `<copy-button>`. Use Shadow DOM so styles don't leak. Use them on a demo page like real HTML tags.
+*Teaches: Custom Elements API, Shadow DOM, `connectedCallback`, `attributeChangedCallback`, encapsulation.*
+
+---
+
+**129. Accessibility Audit & Overhaul**
+Pick one of your finished projects. Run it through the Axe or Lighthouse accessibility audit. Fix every issue: add `aria-label` where needed, fix keyboard tab order, trap focus in modals, add skip links, test with keyboard-only navigation.
+*Teaches: ARIA attributes, `tabindex`, focus management, screen reader semantics, accessibility audit tools.*
+
+**130. Client-Side Security Hardening**
+Build a small demo app that deliberately has XSS vulnerabilities (injecting user input into `innerHTML`). Exploit them. Then fix them using `textContent`, `DOMPurify`, and Content Security Policy meta tags. Document each fix.
+*Teaches: XSS attacks, safe DOM insertion, `innerHTML` vs `textContent`, DOMPurify, CSP basics, input sanitization.*
+
 
 ## Tips for Working Through This List
 
