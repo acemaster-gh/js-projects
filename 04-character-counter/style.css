@@ -46,7 +46,9 @@ textarea {
     overflow: auto;
     -ms-overflow-style: none;
     scrollbar-width: none;
-    
+    width: 100%;
+    max-width: 600px;
+
 }
 h1 {
     font-size: 50px;

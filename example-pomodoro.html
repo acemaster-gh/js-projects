@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEMPO — Focus Timer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Fraunces:ital,opsz,wght@0,9..144,100;0,9..144,700;1,9..144,300&display=swap"
+        rel="stylesheet">
+    <style>
+        /* ============================================================
+   CSS CUSTOM PROPERTIES (Variables)
+   — Change ONE value here, it updates EVERYWHERE on the page.
+   — This is the single most important CSS habit to build early.
+   ============================================================ */
+        :root {
+            /* Color palette */
+            --clr-bg: #0d0d0f;
+            --clr-surface: #16161a;
+            --clr-surface-2: #1e1e24;
+            --clr-border: rgba(255, 255, 255, 0.07);
+            --clr-text: #e8e6e1;
+            --clr-text-muted: rgba(232, 230, 225, 0.38);
+            --clr-accent: #c8a96e;
+            /* warm gold */
+            --clr-accent-dim: rgba(200, 169, 110, 0.12);
+            --clr-work: #c8a96e;
+            --clr-break: #7ec8a9;
+            --clr-long: #7ea9c8;
+            --clr-danger: #c87e7e;
+            --clr-ring-track: rgba(255, 255, 255, 0.05);
+
+            /* Typography */
+            --font-display: 'Fraunces', Georgia, serif;
+            --font-mono: 'DM Mono', 'Courier New', monospace;
+
+            /* Spacing — use multiples of this base */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 40px;
+            --space-2xl: 64px;
+
+            /* Border radius */
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-full: 9999px;
+
+            /* Transitions */
+            --transition-fast: 150ms ease;
+            --transition-base: 280ms ease;
+            --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+
+            /* Shadows */
+            --shadow-glow: 0 0 60px rgba(200, 169, 110, 0.08);
+            --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Mode-specific accent colors — swap with JS by setting data-mode on body */
+        body[data-mode="work"] {
+            --clr-accent: #c8a96e;
+            --clr-accent-dim: rgba(200, 169, 110, 0.12);
+        }
+
+        body[data-mode="break"] {
+            --clr-accent: #7ec8a9;
+            --clr-accent-dim: rgba(126, 200, 169, 0.12);
+        }
+
+        body[data-mode="long"] {
+            --clr-accent: #7ea9c8;
+            --clr-accent-dim: rgba(126, 169, 200, 0.12);
+        }
+
+
+        /* ============================================================
+   RESET — Strip browser default styles so YOU control everything
+   ============================================================ */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-mono);
+            background-color: var(--clr-bg);
+            color: var(--clr-text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-lg);
+            overflow-x: hidden;
+
+            /* Subtle grain texture on background — just a detail but makes a huge difference */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            transition: background-color var(--transition-slow);
+        }
+
+
+        /* ============================================================
+   LAYOUT
+   ============================================================ */
+        .app {
+            width: 100%;
+            max-width: 460px;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xl);
+            animation: fadeUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        /* ============================================================
+   HEADER
+   ============================================================ */
+        .header {
+            text-align: center;
+        }
+
+        .header__logo {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--clr-accent);
+            transition: color var(--transition-slow);
+        }
+
+        .header__tagline {
+            font-size: 0.7rem;
+            color: var(--clr-text-muted);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-top: var(--space-xs);
+        }
+
+
+        /* ============================================================
+   MODE TABS
+   ============================================================ */
+        .mode-tabs {
+            display: flex;
+            background: var(--clr-surface);
+            border: 1px solid var(--clr-border);
+            border-radius: var(--radius-full);
+            padding: 4px;
+            gap: 2px;
+        }
+
+        .mode-tab {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--clr-text-muted);
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            white-space: nowrap;
+        }
+
+        .mode-tab:hover {
+            color: var(--clr-text);
+            background: var(--clr-accent-dim);
+        }
+
+        .mode-tab.active {
+            background: var(--clr-accent-dim);
+            color: var(--clr-accent);
+            font-weight: 500;
+        }
+
+
+        /* ============================================================
+   TIMER CARD — The main piece
+   ============================================================ */
+        .timer-card {
+            background: var(--clr-surface);
+            border: 1px solid var(--clr-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-2xl) var(--space-xl);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+            transition: box-shadow var(--transition-slow);
+        }
+
+        /* Soft ambient glow behind the card */
+        .timer-card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            background: linear-gradient(135deg, var(--clr-accent-dim), transparent 60%);
+            pointer-events: none;
+            transition: background var(--transition-slow);
+        }
+
+
+        /* ============================================================
+   SVG RING — Animated progress circle
+   ============================================================ */
+        .ring-container {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            margin: 0 auto var(--space-xl);
+        }
+
+        .ring-svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+            /* Start from top */
+        }
+
+        .ring-track {
+            fill: none;
+            stroke: var(--clr-ring-track);
+            stroke-width: 3;
+        }
+
+        .ring-progress {
+            fill: none;
+            stroke: var(--clr-accent);
+            stroke-width: 3;
+            stroke-linecap: round;
+            /* stroke-dasharray and stroke-dashoffset are set by JS */
+            stroke-dasharray: 628;
+            /* 2 * PI * radius(100) */
+            stroke-dashoffset: 0;
+            transition: stroke-dashoffset 1s linear, stroke var(--transition-slow);
+        }
+
+        /* Timer display sits in the middle of the ring */
+        .ring-center {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .timer-display {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 100;
+            font-style: italic;
+            letter-spacing: -2px;
+            color: var(--clr-text);
+            line-height: 1;
+            /* Tabular numbers = digits don't jump in width */
+            font-variant-numeric: tabular-nums;
+            transition: color var(--transition-base);
+        }
+
+        .timer-label {
+            font-size: 0.62rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--clr-accent);
+            transition: color var(--transition-slow);
+        }
+
+
+        /* ============================================================
+   CONTROLS
+   ============================================================ */
+        .controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-md);
+        }
+
+        /* Base button — all buttons inherit from this */
+        .btn {
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-radius: var(--radius-full);
+            transition: all var(--transition-base);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+        }
+
+        .btn:active {
+            transform: scale(0.96);
+        }
+
+        /* Primary action (Play/Pause) */
+        .btn--primary {
+            background: var(--clr-accent);
+            color: var(--clr-bg);
+            padding: var(--space-md) var(--space-2xl);
+            font-size: 0.75rem;
+            font-weight: 500;
+            box-shadow: 0 4px 20px rgba(200, 169, 110, 0.3);
+            transition: all var(--transition-base);
+        }
+
+        .btn--primary:hover {
+            filter: brightness(1.1);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 28px rgba(200, 169, 110, 0.4);
+        }
+
+        /* Ghost / secondary button */
+        .btn--ghost {
+            background: transparent;
+            color: var(--clr-text-muted);
+            border: 1px solid var(--clr-border);
+            padding: var(--space-sm) var(--space-md);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+        }
+
+        .btn--ghost:hover {
+            color: var(--clr-text);
+            border-color: rgba(255, 255, 255, 0.15);
+            background: var(--clr-surface-2);
+        }
+
+
+        /* ============================================================
+   STATS ROW
+   ============================================================ */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+        }
+
+        .stat-card {
+            background: var(--clr-surface);
+            border: 1px solid var(--clr-border);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            text-align: center;
+            transition: border-color var(--transition-base);
+        }
+
+        .stat-card:hover {
+            border-color: var(--clr-accent);
+        }
+
+        .stat__value {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--clr-accent);
+            line-height: 1;
+            transition: color var(--transition-slow);
+        }
+
+        .stat__label {
+            font-size: 0.6rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--clr-text-muted);
+            margin-top: var(--space-xs);
+        }
+
+
+        /* ============================================================
+   SETTINGS PANEL
+   ============================================================ */
+        .settings-toggle {
+            text-align: center;
+        }
+
+        .settings-toggle-btn {
+            background: none;
+            border: none;
+            color: var(--clr-text-muted);
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: color var(--transition-base);
+            padding: var(--space-sm);
+        }
+
+        .settings-toggle-btn:hover {
+            color: var(--clr-accent);
+        }
+
+        .settings-panel {
+            background: var(--clr-surface);
+            border: 1px solid var(--clr-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg) var(--space-xl);
+            display: none;
+            flex-direction: column;
+            gap: var(--space-lg);
+            animation: fadeUp 0.3s ease both;
+        }
+
+        .settings-panel.open {
+            display: flex;
+        }
+
+        .settings-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-md);
+        }
+
+        .settings-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--clr-text-muted);
+        }
+
+        /* Number stepper input */
+        .stepper {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: var(--clr-surface-2);
+            border: 1px solid var(--clr-border);
+            border-radius: var(--radius-full);
+            padding: var(--space-xs) var(--space-sm);
+        }
+
+        .stepper__btn {
+            background: none;
+            border: none;
+            color: var(--clr-text-muted);
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            transition: all var(--transition-fast);
+            line-height: 1;
+        }
+
+        .stepper__btn:hover {
+            color: var(--clr-accent);
+            background: var(--clr-accent-dim);
+        }
+
+        .stepper__value {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--clr-text);
+            min-width: 28px;
+            text-align: center;
+        }
+
+        /* Toggle switch */
+        .toggle-switch {
+            position: relative;
+            width: 40px;
+            height: 22px;
+            cursor: pointer;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-track {
+            position: absolute;
+            inset: 0;
+            background: var(--clr-surface-2);
+            border: 1px solid var(--clr-border);
+            border-radius: var(--radius-full);
+            transition: all var(--transition-base);
+        }
+
+        .toggle-thumb {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 14px;
+            height: 14px;
+            background: var(--clr-text-muted);
+            border-radius: 50%;
+            transition: all var(--transition-base);
+        }
+
+        .toggle-switch input:checked~.toggle-track {
+            background: var(--clr-accent-dim);
+            border-color: var(--clr-accent);
+        }
+
+        .toggle-switch input:checked~.toggle-thumb {
+            left: 21px;
+            background: var(--clr-accent);
+        }
+
+
+        /* ============================================================
+   SESSION HISTORY — dot indicators
+   ============================================================ */
+        .session-dots {
+            display: flex;
+            gap: var(--space-sm);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--clr-surface-2);
+            border: 1px solid var(--clr-border);
+            transition: all var(--transition-base);
+        }
+
+        .dot.work {
+            background: var(--clr-work);
+            border-color: var(--clr-work);
+        }
+
+        .dot.break {
+            background: var(--clr-break);
+            border-color: var(--clr-break);
+        }
+
+        .dot.long {
+            background: var(--clr-long);
+            border-color: var(--clr-long);
+        }
+
+
+        /* ============================================================
+   NOTIFICATION TOAST
+   ============================================================ */
+        .toast {
+            position: fixed;
+            bottom: var(--space-xl);
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: var(--clr-surface-2);
+            border: 1px solid var(--clr-accent);
+            border-radius: var(--radius-full);
+            padding: var(--space-md) var(--space-xl);
+            font-size: 0.75rem;
+            letter-spacing: 0.08em;
+            color: var(--clr-accent);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+
+        /* ============================================================
+   FOCUS MODE — hides everything except timer when running
+   ============================================================ */
+        body.focus-mode .stats,
+        body.focus-mode .settings-toggle,
+        body.focus-mode .settings-panel,
+        body.focus-mode .session-dots,
+        body.focus-mode .header__tagline {
+            opacity: 0.15;
+            pointer-events: none;
+            transition: opacity var(--transition-slow);
+        }
+
+
+        /* ============================================================
+   RESPONSIVE — graceful on smaller screens
+   ============================================================ */
+        @media (max-width: 480px) {
+            .timer-display {
+                font-size: 3rem;
+            }
+
+            .ring-container {
+                width: 180px;
+                height: 180px;
+            }
+
+            .ring-progress {
+                stroke-dasharray: 502;
+            }
+
+            /* 2*PI*80 */
+            .timer-card {
+                padding: var(--space-xl) var(--space-lg);
+            }
+        }
+    </style>
+</head>
+
+<body data-mode="work">
+
+    <!-- ============================================================
+     HTML — Semantic, accessible, clean
+     Notice: every interactive element is a real <button>
+     Notice: meaningful IDs and classes — no "div1", "box", etc.
+     Notice: aria- attributes for accessibility
+     ============================================================ -->
+
+    <main class="app" role="main" aria-label="Focus Timer Application">
+
+        <!-- HEADER -->
+        <header class="header">
+            <p class="header__logo">TEMPO</p>
+            <p class="header__tagline">Deep work · one session at a time</p>
+        </header>
+
+        <!-- MODE SELECTOR -->
+        <nav class="mode-tabs" role="tablist" aria-label="Timer mode selection">
+            <button class="mode-tab active" role="tab" aria-selected="true" data-mode="work"
+                data-minutes="25">Focus</button>
+            <button class="mode-tab" role="tab" aria-selected="false" data-mode="break" data-minutes="5">Short
+                Break</button>
+            <button class="mode-tab" role="tab" aria-selected="false" data-mode="long" data-minutes="15">Long
+                Break</button>
+        </nav>
+
+        <!-- MAIN TIMER CARD -->
+        <section class="timer-card" aria-label="Timer">
+
+            <!-- SVG Ring Progress -->
+            <div class="ring-container" aria-hidden="true">
+                <svg class="ring-svg" viewBox="0 0 220 220">
+                    <circle class="ring-track" cx="110" cy="110" r="100" />
+                    <circle class="ring-progress" cx="110" cy="110" r="100" id="ring" />
+                </svg>
+                <div class="ring-center">
+                    <time class="timer-display" id="timer-display" aria-live="polite" aria-atomic="true">25:00</time>
+                    <span class="timer-label" id="timer-label">focus session</span>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls">
+                <button class="btn btn--ghost" id="btn-reset" aria-label="Reset timer" title="Reset">
+                    ↺
+                </button>
+                <button class="btn btn--primary" id="btn-play" aria-label="Start timer">
+                    ▶ &nbsp;Start
+                </button>
+                <button class="btn btn--ghost" id="btn-skip" aria-label="Skip to next session" title="Skip">
+                    ⇥
+                </button>
+            </div>
+
+        </section>
+
+        <!-- SESSION HISTORY DOTS -->
+        <div class="session-dots" id="session-dots" aria-label="Session history" role="list"></div>
+
+        <!-- STATS -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat__value" id="stat-sessions">0</div>
+                <div class="stat__label">Sessions</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat__value" id="stat-minutes">0</div>
+                <div class="stat__label">Min Focused</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat__value" id="stat-streak">0</div>
+                <div class="stat__label">Streak</div>
+            </div>
+        </div>
+
+        <!-- SETTINGS TOGGLE -->
+        <div class="settings-toggle">
+            <button class="settings-toggle-btn" id="settings-btn" aria-expanded="false" aria-controls="settings-panel">
+                ⚙ Settings
+            </button>
+        </div>
+
+        <!-- SETTINGS PANEL -->
+        <section class="settings-panel" id="settings-panel" aria-label="Timer settings">
+
+            <div class="settings-row">
+                <label class="settings-label">Focus Duration</label>
+                <div class="stepper">
+                    <button class="stepper__btn" data-target="work" data-dir="-1"
+                        aria-label="Decrease focus duration">−</button>
+                    <span class="stepper__value" id="setting-work">25</span>
+                    <button class="stepper__btn" data-target="work" data-dir="1"
+                        aria-label="Increase focus duration">+</button>
+                </div>
+            </div>
+
+            <div class="settings-row">
+                <label class="settings-label">Short Break</label>
+                <div class="stepper">
+                    <button class="stepper__btn" data-target="break" data-dir="-1"
+                        aria-label="Decrease short break">−</button>
+                    <span class="stepper__value" id="setting-break">5</span>
+                    <button class="stepper__btn" data-target="break" data-dir="1"
+                        aria-label="Increase short break">+</button>
+                </div>
+            </div>
+
+            <div class="settings-row">
+                <label class="settings-label">Long Break</label>
+                <div class="stepper">
+                    <button class="stepper__btn" data-target="long" data-dir="-1"
+                        aria-label="Decrease long break">−</button>
+                    <span class="stepper__value" id="setting-long">15</span>
+                    <button class="stepper__btn" data-target="long" data-dir="1"
+                        aria-label="Increase long break">+</button>
+                </div>
+            </div>
+
+            <div class="settings-row">
+                <label class="settings-label" for="toggle-sound">Sound Alerts</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="toggle-sound" checked>
+                    <span class="toggle-track"></span>
+                    <span class="toggle-thumb"></span>
+                </label>
+            </div>
+
+            <div class="settings-row">
+                <label class="settings-label" for="toggle-focus">Focus Mode</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="toggle-focus">
+                    <span class="toggle-track"></span>
+                    <span class="toggle-thumb"></span>
+                </label>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
+
+
+    <script>
+        /* ============================================================
+           JAVASCRIPT — Organised in clear sections
+           Read this top to bottom like a story.
+           ============================================================ */
+
+
+        /* ============================================================
+           1. CONFIGURATION
+           — All magic numbers live here. Never scatter them in code.
+           ============================================================ */
+        const CONFIG = {
+            modes: {
+                work: { label: 'focus session', minutes: 25 },
+                break: { label: 'short break', minutes: 5 },
+                long: { label: 'long break', minutes: 15 },
+            },
+            longBreakAfter: 4,   // sessions before a long break
+            ringCircumference: 628, // 2 * Math.PI * 100 (matches CSS)
+        };
+
+
+        /* ============================================================
+           2. STATE
+           — One object holds ALL app state. Makes debugging easy.
+           — Never spread state randomly across variables.
+           ============================================================ */
+        const state = {
+            mode: 'work',
+            isRunning: false,
+            totalSeconds: CONFIG.modes.work.minutes * 60,
+            remainingSeconds: CONFIG.modes.work.minutes * 60,
+            intervalId: null,
+            completedSessions: 0,
+            minutesFocused: 0,
+            streak: 0,
+            sessionHistory: [],   // array of 'work' | 'break' | 'long'
+            settings: {
+                work: 25,
+                break: 5,
+                long: 15,
+                sound: true,
+                focusMode: false,
+            },
+        };
+
+
+        /* ============================================================
+           3. DOM REFERENCES
+           — Grab all elements once at the top.
+           — Never call getElementById inside event handlers or loops.
+           ============================================================ */
+        const DOM = {
+            timerDisplay: document.getElementById('timer-display'),
+            timerLabel: document.getElementById('timer-label'),
+            ring: document.getElementById('ring'),
+            btnPlay: document.getElementById('btn-play'),
+            btnReset: document.getElementById('btn-reset'),
+            btnSkip: document.getElementById('btn-skip'),
+            modeTabs: document.querySelectorAll('.mode-tab'),
+            statSessions: document.getElementById('stat-sessions'),
+            statMinutes: document.getElementById('stat-minutes'),
+            statStreak: document.getElementById('stat-streak'),
+            sessionDots: document.getElementById('session-dots'),
+            settingsBtn: document.getElementById('settings-btn'),
+            settingsPanel: document.getElementById('settings-panel'),
+            stepperBtns: document.querySelectorAll('.stepper__btn'),
+            settingWork: document.getElementById('setting-work'),
+            settingBreak: document.getElementById('setting-break'),
+            settingLong: document.getElementById('setting-long'),
+            toggleSound: document.getElementById('toggle-sound'),
+            toggleFocus: document.getElementById('toggle-focus'),
+            toast: document.getElementById('toast'),
+        };
+
+
+        /* ============================================================
+           4. UTILITY FUNCTIONS
+           — Small, reusable, pure functions. Do one thing each.
+           ============================================================ */
+
+        /** Format seconds into MM:SS string */
+        function formatTime(seconds) {
+            const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const s = (seconds % 60).toString().padStart(2, '0');
+            return `${m}:${s}`;
+        }
+
+        /** Calculate ring progress (0 = full, circumference = empty) */
+        function calcRingOffset(remaining, total) {
+            const progress = remaining / total;
+            return CONFIG.ringCircumference * (1 - progress);
+        }
+
+        /** Show a toast message for a short duration */
+        function showToast(message, duration = 2800) {
+            DOM.toast.textContent = message;
+            DOM.toast.classList.add('show');
+            setTimeout(() => DOM.toast.classList.remove('show'), duration);
+        }
+
+        /** Play a soft beep using the Web Audio API (no audio file needed) */
+        function playBeep(type = 'end') {
+            if (!state.settings.sound) return;
+            try {
+                const ctx = new AudioContext();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                osc.type = 'sine';
+                osc.frequency.value = type === 'end' ? 528 : 440;
+                gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1);
+
+                osc.start(ctx.currentTime);
+                osc.stop(ctx.currentTime + 1);
+            } catch (e) {
+                // AudioContext blocked (no user interaction yet) — fail silently
+            }
+        }
+
+        /** Update the browser tab title */
+        function updatePageTitle() {
+            document.title = state.isRunning
+                ? `${formatTime(state.remainingSeconds)} — TEMPO`
+                : 'TEMPO — Focus Timer';
+        }
+
+
+        /* ============================================================
+           5. RENDER FUNCTIONS
+           — These READ from state and UPDATE the DOM.
+           — Never update the DOM directly in logic functions.
+           ============================================================ */
+
+        function renderTimer() {
+            DOM.timerDisplay.textContent = formatTime(state.remainingSeconds);
+            DOM.ring.style.strokeDashoffset = calcRingOffset(state.remainingSeconds, state.totalSeconds);
+            updatePageTitle();
+        }
+
+        function renderControls() {
+            DOM.btnPlay.innerHTML = state.isRunning
+                ? '⏸ &nbsp;Pause'
+                : '▶ &nbsp;' + (state.remainingSeconds < state.totalSeconds ? 'Resume' : 'Start');
+        }
+
+        function renderModeUI() {
+            document.body.setAttribute('data-mode', state.mode);
+            DOM.timerLabel.textContent = CONFIG.modes[state.mode].label;
+
+            DOM.modeTabs.forEach(tab => {
+                const isActive = tab.dataset.mode === state.mode;
+                tab.classList.toggle('active', isActive);
+                tab.setAttribute('aria-selected', isActive);
+            });
+        }
+
+        function renderStats() {
+            DOM.statSessions.textContent = state.completedSessions;
+            DOM.statMinutes.textContent = state.minutesFocused;
+            DOM.statStreak.textContent = state.streak;
+        }
+
+        function renderSessionDots() {
+            DOM.sessionDots.innerHTML = '';
+            state.sessionHistory.slice(-12).forEach(type => {
+                const dot = document.createElement('div');
+                dot.className = `dot ${type}`;
+                dot.setAttribute('role', 'listitem');
+                dot.setAttribute('aria-label', `${type} session completed`);
+                DOM.sessionDots.appendChild(dot);
+            });
+        }
+
+        /** Full re-render — call this any time state changes */
+        function render() {
+            renderTimer();
+            renderControls();
+            renderModeUI();
+            renderStats();
+            renderSessionDots();
+        }
+
+
+        /* ============================================================
+           6. CORE TIMER LOGIC
+           ============================================================ */
+
+        function startTimer() {
+            if (state.isRunning) return;
+            state.isRunning = true;
+
+            state.intervalId = setInterval(() => {
+                state.remainingSeconds--;
+
+                if (state.remainingSeconds <= 0) {
+                    onSessionComplete();
+                } else {
+                    renderTimer();
+                    updatePageTitle();
+                }
+            }, 1000);
+
+            renderControls();
+        }
+
+        function pauseTimer() {
+            if (!state.isRunning) return;
+            state.isRunning = false;
+            clearInterval(state.intervalId);
+            renderControls();
+        }
+
+        function resetTimer() {
+            pauseTimer();
+            state.remainingSeconds = state.totalSeconds;
+            render();
+        }
+
+        function onSessionComplete() {
+            pauseTimer();
+            playBeep('end');
+
+            // Record history
+            state.sessionHistory.push(state.mode);
+
+            if (state.mode === 'work') {
+                state.completedSessions++;
+                state.minutesFocused += state.settings.work;
+                state.streak++;
+
+                const isLongBreakTime = state.completedSessions % CONFIG.longBreakAfter === 0;
+                showToast(isLongBreakTime
+                    ? `🎉 ${CONFIG.longBreakAfter} sessions done! Take a long break.`
+                    : '✓ Session complete! Time for a short break.');
+
+                // Auto-switch mode
+                switchMode(isLongBreakTime ? 'long' : 'break');
+            } else {
+                showToast('Break over — back to focus!');
+                switchMode('work');
+            }
+
+            renderStats();
+            renderSessionDots();
+        }
+
+        function skipSession() {
+            pauseTimer();
+            state.sessionHistory.push(state.mode);
+            switchMode(state.mode === 'work'
+                ? (state.completedSessions % CONFIG.longBreakAfter === 0 ? 'long' : 'break')
+                : 'work');
+        }
+
+        function switchMode(newMode) {
+            state.mode = newMode;
+            state.totalSeconds = state.settings[newMode] * 60;
+            state.remainingSeconds = state.totalSeconds;
+            state.isRunning = false;
+            clearInterval(state.intervalId);
+            render();
+        }
+
+
+        /* ============================================================
+           7. SETTINGS LOGIC
+           ============================================================ */
+
+        function adjustSetting(target, direction) {
+            const limits = { work: [5, 90], break: [1, 30], long: [5, 60] };
+            const [min, max] = limits[target];
+
+            state.settings[target] = Math.min(max, Math.max(min,
+                state.settings[target] + direction
+            ));
+
+            // Update display
+            const displayEl = document.getElementById(`setting-${target}`);
+            if (displayEl) displayEl.textContent = state.settings[target];
+
+            // Update matching mode tab data
+            const tab = document.querySelector(`.mode-tab[data-mode="${target}"]`);
+            if (tab) tab.dataset.minutes = state.settings[target];
+
+            // If we're currently in this mode, update the timer too
+            if (state.mode === target && !state.isRunning) {
+                state.totalSeconds = state.settings[target] * 60;
+                state.remainingSeconds = state.totalSeconds;
+                renderTimer();
+            }
+        }
+
+
+        /* ============================================================
+           8. EVENT LISTENERS
+           — Grouped at the bottom, clearly separated.
+           — Each listener does ONE thing or calls a named function.
+           ============================================================ */
+
+        // Play / Pause
+        DOM.btnPlay.addEventListener('click', () => {
+            state.isRunning ? pauseTimer() : startTimer();
+        });
+
+        // Reset
+        DOM.btnReset.addEventListener('click', resetTimer);
+
+        // Skip
+        DOM.btnSkip.addEventListener('click', skipSession);
+
+        // Mode tabs
+        DOM.modeTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const newMode = tab.dataset.mode;
+                if (newMode !== state.mode) switchMode(newMode);
+            });
+        });
+
+        // Settings panel toggle
+        DOM.settingsBtn.addEventListener('click', () => {
+            const isOpen = DOM.settingsPanel.classList.toggle('open');
+            DOM.settingsBtn.setAttribute('aria-expanded', isOpen);
+            DOM.settingsBtn.textContent = isOpen ? '✕ Close' : '⚙ Settings';
+        });
+
+        // Stepper buttons (settings)
+        DOM.stepperBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                adjustSetting(btn.dataset.target, parseInt(btn.dataset.dir));
+            });
+        });
+
+        // Sound toggle
+        DOM.toggleSound.addEventListener('change', () => {
+            state.settings.sound = DOM.toggleSound.checked;
+        });
+
+        // Focus mode toggle
+        DOM.toggleFocus.addEventListener('change', () => {
+            state.settings.focusMode = DOM.toggleFocus.checked;
+            document.body.classList.toggle('focus-mode', state.settings.focusMode);
+            showToast(state.settings.focusMode ? 'Focus mode on — distractions hidden' : 'Focus mode off');
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Don't fire if user is typing in an input
+            if (e.target.tagName === 'INPUT') return;
+
+            switch (e.code) {
+                case 'Space':
+                    e.preventDefault();
+                    state.isRunning ? pauseTimer() : startTimer();
+                    break;
+                case 'KeyR':
+                    resetTimer();
+                    break;
+                case 'KeyS':
+                    skipSession();
+                    break;
+            }
+        });
+
+
+        /* ============================================================
+           9. INITIALISE
+           — Run once on page load to set the initial state.
+           ============================================================ */
+        render();
+
+    </script>
+</body>
+
+</html>
