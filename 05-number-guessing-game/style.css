@@ -1,0 +1,14 @@
+:root {
+    --color-bg: #ffffff;
+    --color-text: #222;
+    --color-primary: #4caf50;
+    --border-radius:8px;
+    --transition-speed: 0.3s;
+
+}
+ 
+body.dark-mode {
+    --color-bg: #121212;
+    --color-text:#ffffff;
+    
+}
