@@ -159,4 +159,4 @@ Just tell your AI assistant "help me build project #X" and go!
 - **Show your work.** Even just screenshotting finished projects keeps you motivated.
 - **When stuck**, tell your AI: *"I'm on project #X, here's my code, here's the problem"* — you'll learn faster that way than just asking for the full solution.
 
-Good luck. You've already got the environment and the routine sorted — now just build. 🚀
+Good luck. 
