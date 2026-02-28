@@ -1,29 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<label for="theme-Btn" id="lbl">Change Theme: </label>
-<button id="theme-Btn">Switch to Dark Mode </button>
-<main class="container">
+    <label for="themeBtn" id="lbl">Change Theme: </label>
+    <button id="themeBtn">Switch to Dark Mode </button>
+    <main class="container">
 
 
-<h1>Number Guessing Game </h1><input type="number" id="guess-input" min="1" max="100">
-<button id="reset-btn" class="btn">Reset Btn</button>
-<p id="message">Feedback Message Here</p>
-<p><span id="attempts">Attempts Here</span></p>
-<p id="status">Game Status</p>
-<ul id="history"></ul>
+        <h1>Number Guessing Game </h1>
+        <input type="number" id="guess-input" min="1" max="100">
+    <div class="buttons">
+        <button id="submitBtn" class="btn">Submit</button>
+        <button id="resetBtn" class="btn">Reset Btn</button>
+    </div>
 
-</main>
+        <p id="message">Feedback Message Here</p>
+        <p><span id="attempts">Attempts Here</span></p>
+        <p id="status">Game Status</p>
+        <ul id="history"></ul>
+
+    </main>
 
 
 
     <script src="script.js"></script>
 </body>
+
 </html>
