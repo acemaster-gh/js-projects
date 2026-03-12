@@ -60,7 +60,7 @@ body {
     padding: var(--btn-padding);
     border-radius: var(--border-radius);
     border: none;
-        transition: var(--tsn);
+    transition: var(--tsn);
 
 
 }

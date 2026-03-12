@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard Todo</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="app-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+
+            <button id="toggle-sidebar" class="icon-btn">
+                <i class='bx bx-menu'></i>
+            </button>
+
+            <div class="sidebar-header">
+                <span>Menu</span>
+            </div>
+
+            <nav class="sidebar-nav">
+
+                <ul>
+
+                    <li>
+                        <a href="#">
+                            <i class='bx bx-home'></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <i class='bx bx-cog'></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <i class='bx bx-user'></i>
+                            <span>Contacts</span>
+                        </a>
+                    </li>
+
+                </ul>
+
+            </nav>
+
+        </aside>
+
+        <!-- MAIN -->
+        <div class="main-wrapper">
+
+            <!-- NAVBAR -->
+            <nav class="top-navbar">
+
+                <div class="search-container">
+                    <input type="search" placeholder="Search">
+                </div>
+
+                <div class="nav-actions">
+
+                    <button id="themeBtn">
+                        <i class='bx bx-moon' id="themeIcon"></i>
+                    </button>
+
+                    <div class="account">
+                        Account
+                    </div>
+
+                </div>
+
+            </nav>
+
+            <!-- CONTENT -->
+            <main class="content-area">
+
+                <h1 class="app-header">To-Do Dashboard</h1>
+                <div class="todo-app">
+
+                     <ul id="taskList"></ul>
+
+                    <div class="bubble"> <input type="text" id="taskInput" placeholder="Add a task Here">
+
+                        <button id="addTaskBtn">Add</button>
+                    </div>
+                   
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
