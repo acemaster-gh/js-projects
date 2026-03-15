@@ -34,6 +34,11 @@ body {
     height: 100vh;
 }
 
+body::-webkit-scrollbar {
+    display: none;
+
+}
+
 .app-layout {
     display: flex;
     height: 100vh;
@@ -161,33 +166,80 @@ body {
     height: 4rem;
     border-radius: 50px;
     display: flex;
-    position: sticky;
+    align-items: center;
+    padding: 0 10px 0 20px;
+    margin-top: auto;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 
 
+}
+
+.dark-mode .bubble {
+    background-color: var(--sidebar-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 
 
 }
 
 #taskInput {
+    flex: 1;
     background: transparent;
     position: sticky;
     border: none;
-    /* :focus-within{} */
-    height: 4rem;
+    outline: none;
+    height: 100%;
+    font-family: inherit;
+    font-size: 1rem;
+    color: white;
+    resize: none;
+    overflow-y: auto;
+    line-height: 1.4;
+    text-align: center;
+    padding-top: 1.2rem;
+   
+    overflow: hidden;
+
+
 
 }
 
-#addTaskBtn {
-    height: 3rem;
-    width: 3rem;
+#taskInput::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+    opacity: 0.5;
 
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border-radius: 50px;
+}
+
+
+#addTaskBtn {
+    height: 3.2rem;
+    width: 3.2rem;
+    border-radius: 50%;
     border: none;
     background-color: var(--taskbar-bg);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, background 0.2s;
+    font-weight: 600;
+}
 
+#addTaskBtn:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
 
+.todo-app {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 150px);
+}
 
+#taskList {
+    overflow-y: auto;
+    flex: 1;
+    margin-bottom: 20px;
 }
