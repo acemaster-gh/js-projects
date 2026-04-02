@@ -1,0 +1,2944 @@
+========================================
+FILE: ./01-color-flipper/index.html
+========================================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Flipper</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+
+        <h1 id="heading">Color Flipper</h1>
+        <h2 id="Color-code">rgb(255, 255, 255)</h2>
+        <button id="btn">Change Color</button>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+========================================
+FILE: ./01-color-flipper/script.js
+========================================
+const button = document.getElementById("btn");
+const colorCode = document.getElementById("Color-code");
+
+
+button.addEventListener('click', function () {
+    const randomColor = getRandomColor();
+    document.body.style.backgroundColor = randomColor;
+    colorCode.textContent = randomColor;
+
+});
+ function getRandomColor () {
+
+     const r = Math.floor(Math.random() * 256);
+     const g = Math.floor(Math.random() * 256);
+     const b = Math.floor(Math.random() * 256);
+
+     return `rgb(${r}, ${g}, ${b})`;
+ }
+========================================
+FILE: ./01-color-flipper/style.css
+========================================
+body {
+    background-color: #212121;
+    color: white;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.4s ease;
+
+}
+.container {
+    text-align: center;
+
+}
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+     
+}
+========================================
+FILE: ./02-counter-app/index.html
+========================================
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Counter</h1>
+
+        <h2 id="count">0</h2>
+
+        <div class="buttons">
+            <button id="increase" class="button">Increase</button>
+            <button id="reset" class="button">Reset</button>
+            <button id="decrease" class="button">Decrease</button>
+
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
+========================================
+FILE: ./02-counter-app/script.js
+========================================
+const countDisplay = document.getElementById("count");
+const increase = document.getElementById("increase");
+const decrease = document.getElementById("decrease");
+const reset = document.getElementById("reset");
+
+let counter = 0;
+
+//increase
+
+increase.addEventListener('click', function() {
+    counter++;
+countDisplay.textContent = counter;
+});
+
+//decrease
+
+decrease.addEventListener('click', function() {
+    counter--;
+    countDisplay.textContent = counter;
+});
+ reset.addEventListener('click', function() {
+    counter = 0;
+    countDisplay.textContent = counter;
+ });
+========================================
+FILE: ./02-counter-app/style.css
+========================================
+body {
+    background-color: #212121;
+    color: white;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+.container {
+
+  display: flex;
+  justify-content: center; 
+  align-items: center;  
+  flex-direction: column; 
+}
+ h2 {
+    font-size: 100px;
+ }
+ .button {
+    padding: 10px 30px; 
+    font-size: 20px;
+    border-radius: 10px;
+    background-color: #4f4f4f;
+    color: white;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+ }
+ .button:hover{ 
+   background-color: #b4b4b4;
+   transform: scale3d(1.1, 1.1, 1.1);
+   backdrop-filter: blur(10px);
+    font-size: 21px;
+    color: #1f1f1f;
+
+
+ }
+  .button:active{ 
+
+transform: scale(.9);
+background-color: #898888;
+color: rgb(30, 30, 30);
+
+ }
+ 
+========================================
+FILE: ./03-tip-calculator/index.html
+========================================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tip-calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Tip Calculator</h1>
+    <label for="bill">Bill Amount:</label>
+    <input type="number" id="bill"><br>
+
+    <label for="tip">Tip Percentage</label>
+    <select name="" id="tip">
+        <option value="0.10">10%</option>
+        <option value="0.15">15%</option>
+        <option value="0.20">20%</option>
+    </select>
+    <button id="calculateBtn">Calculate</button>
+
+    <h2 id="total">Total: 0</h2>
+</div>
+    
+ <script src="script.js"></script>   
+</body>
+</html>
+========================================
+FILE: ./03-tip-calculator/script.js
+========================================
+const bill = document.querySelector('#bill');
+const tip = document.querySelector('#tip');
+const calculateBtn = document.querySelector('#calculateBtn');
+const totalAmount = document.querySelector('#total');
+
+
+calculateBtn.addEventListener('click', function() {
+    const billValue = parseFloat(bill.value);
+    const tipValue = parseFloat(tip.value);
+
+        if (isNaN(billValue) || billValue <= 0) {
+        totalAmount.textContent = "Please enter a valid bill amount";
+        totalAmount.style.color = "red";
+        return;
+
+    }
+
+
+    const tipAmount = billValue * tipValue;
+    const total = billValue + tipAmount;
+
+
+
+
+   totalAmount.style.color = "white"; 
+   totalAmount.textContent = `Total: ${total.toFixed(2)}`;
+
+
+});
+
+========================================
+FILE: ./03-tip-calculator/style.css
+========================================
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #212121;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; 
+    font-family: sans-serif;
+
+}
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+    margin: 5px;
+    padding: 30px;
+    border: 1px solid #444;
+    border-radius: 15px;
+    background-color: #2c2c2c;
+
+
+}
+input, select, button {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+}
+button { 
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.1s ease-in-out;
+    
+}
+
+
+button:hover {
+
+     background-color: #45a049;
+     transform: scale(1.03);
+}
+button:active {
+    transform: scale(0.93);
+
+}
+
+
+
+
+========================================
+FILE: ./04-character-counter/index.html
+========================================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Counter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<label for="theme-toggle">Mode: </label>
+<button id="theme-toggle">Switch to Dark Mode</button>
+<div class="container">
+    <h1>Character Counter</h1>
+    <textarea name="Counter" id="text-input" maxlength="200"></textarea>
+    <p>Total Character: <span id="char-count">0</span></p>
+    <p>Remaining: <span id="remaining">200</span></p>
+
+</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+========================================
+FILE: ./04-character-counter/script.js
+========================================
+const darkBtn = document.getElementById("theme-toggle");
+const textInput = document.querySelector('#text-input');
+const characterCount = document.querySelector('#char-count');
+const remainingCharacter = document.querySelector('#remaining')
+const maxLength = 200;
+
+
+
+// darkmode logic
+
+darkBtn.addEventListener('click', function() {
+
+    document.body.classList.toggle("dark-mode");
+
+     if (document.body.classList.contains("dark-mode")) {
+        darkBtn.textContent = "Switch to Light Mode";
+    } else {
+        darkBtn.textContent = "Switch to Dark Mode";
+    }
+});
+
+textInput.addEventListener("input", function() {
+    
+    const currentText = textInput.value;
+    const currentLength = currentText.length;
+    const remainingLength = maxLength - currentLength
+
+    characterCount.textContent = currentLength;
+    remainingCharacter.textContent = remainingLength;
+
+
+});
+========================================
+FILE: ./04-character-counter/style.css
+========================================
+:root {
+    --bg-body: #ffffff;
+    --bg-textarea: #f0f0f0;
+    --text-color: #212121;
+    --border-color:black;
+
+
+}
+
+
+body.dark-mode {
+    --bg-body: #212121;
+    --bg-textarea: #2c2c2c;
+    --text-color: white;
+    --border-color:white;
+
+
+}
+
+body{
+    background-color: var(--bg-body);
+    color: var(--text-color);
+    transition: background-color 0.4s ease, color 0.4s ease;
+
+
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    margin: 10px;
+    padding: 15px;
+
+}
+textarea { 
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    background-color: var(--bg-textarea);
+    color: var(--text-color);
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    padding: 15px;
+    font-size: 20px;
+    overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    width: 100%;
+    max-width: 600px;
+
+}
+h1 {
+    font-size: 50px;
+}
+p {
+    font-size: 30px;
+}
+========================================
+FILE: ./05-number-guessing-game/index.html
+========================================
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <label for="themeBtn" id="lbl">Change Theme: </label>
+    <button id="themeBtn">Switch to Dark Mode </button>
+    <main class="container">
+
+
+        <h1>Number Guessing Game </h1>
+        <input type="number" id="guess-input" min="1" max="100">
+    <div class="buttons">
+        <button id="submitBtn" class="btn">Submit</button>
+        <button id="resetBtn" class="btn">Reset Btn</button>
+    </div>
+
+        <p id="message">Feedback Message Here</p>
+        <p><span id="attempts">Attempts Here</span></p>
+        <p id="status">Game Status</p>
+        <ul id="history"></ul>
+
+    </main>
+
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
+========================================
+FILE: ./05-number-guessing-game/script.js
+========================================
+//SELECTORS
+
+const themeBtn = document.querySelector('#themeBtn');
+const input = document.querySelector('#guess-input');
+const submit = document.querySelector('#submitBtn');
+const reset = document.querySelector('#resetBtn');
+const feedbackMessage = document.querySelector('#message');
+const attempts = document.querySelector('#attempts');
+const status = document.querySelector('#status');
+const history = document.querySelector('#history');
+
+
+
+
+
+
+//EVENT LISTENERS
+
+
+themeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+
+    if (document.body.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark');
+        themeBtn.textContent = 'Switch to Light Mode';
+
+    } else {
+        localStorage.setItem('theme', 'light');
+        themeBtn.textContent = 'Switch to Dark Mode';
+    }
+
+});
+
+// step 1 - STATE OBJECT
+
+const state = {
+  min: 1,
+  max: 100,
+  secretNumber: null,
+  attempts: 0,
+  maxAttempts: 10,
+  status: "idle", 
+  history: []
+};
+// step 2 - GENERATING SECRET NUMBER (INITIALISATION)
+
+function generateSecretNumber(min, max) {
+    return Math.floor(Math.random( ) * (max - min + 1)) + min;
+}
+
+// state.secretNumber = generateSecretNumber(state.min, state.max);
+
+// step 3 starting game
+
+function startGame(){
+    state.secretNumber = generateSecretNumber(state.min, state.max);
+    state.attempts = 0;
+    state.history = [];
+    state.status = "playing";
+    attempts.textContent = state.attempts;
+    feedbackMessage.textContent = "Game started! Make a guess.";
+    input.disabled = false;
+    input.value = "";
+}
+
+// step 4 VALIDATION
+
+function validateGuess(value) {
+  if (state.status !== "playing") {
+    return { valid: false, message: "Game is over. Reset to play again." };
+  }
+
+  if (value.trim() === "") {
+    return { valid: false, message: "Input cannot be empty." };
+  }
+
+  const number = Number(value);
+
+  if (isNaN(number)) {
+    return { valid: false, message: "Please enter a valid number." };
+  }
+
+  if (!Number.isInteger(number)) {
+    return { valid: false, message: "No decimals allowed." };
+  }
+
+  if (number < state.min || number > state.max) {
+    return { valid: false, message: `Enter a number between ${state.min} and ${state.max}.` };
+  }
+
+  return { valid: true, number };
+}
+
+// step 5 HANDLE GUESS
+
+function handleGuess(guess) {
+  state.attempts++;
+  state.history.push(guess);
+  attempts.textContent = state.attempts;
+
+  if (guess === state.secretNumber) {
+    state.status = "won";
+    input.disabled = true;
+    return "Correct! You won!";
+  }
+
+  if (state.attempts >= state.maxAttempts) {
+    state.status = "lost";
+    input.disabled = true;
+    return `Game over! The number was ${state.secretNumber}`;
+  }
+
+  if (guess > state.secretNumber) {
+    return "Too high!";
+  } else {
+    return "Too low!";
+  }
+}
+
+
+// STEP 6 CONNECTING THE SUBMIT BUTTON
+
+submit.addEventListener("click", () => {
+  const value = input.value;
+  const validation = validateGuess(value);
+
+  if (!validation.valid) {
+    feedbackMessage.textContent = validation.message;
+    return;
+  }
+
+  const resultMessage = handleGuess(validation.number);
+  feedbackMessage.textContent = resultMessage;
+});
+
+reset.addEventListener('click', () => {
+    startGame();
+});
+
+startGame(); 
+========================================
+FILE: ./05-number-guessing-game/style.css
+========================================
+ :root { 
+    --error-clr:#e74c3c;
+    --border-radius: 8px;
+    --font-main: 'Courier New', Courier, monospace;
+    --bg-color: #f4f4f9;
+    --card-bg: #ffffff;
+    --text-color: #333333;
+    --primary-color: #4a90e2;
+    --primary-color2:#3e89de;
+    --accent-color: #eeeeee;
+    --card-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+
+
+    /* --buttons-styling-variables*/
+
+    --btn-bg: var(--primary-color);
+    --btn-bg-hover: var(--primary-color2);
+    --btn-text: #ffffff;
+    --btn-padding: 10px 20px;
+    --btn-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+   /*input variables*/
+
+    --input-bg: #ffffff;
+    --input-border: #cccccc;
+    --input-focus: var(--primary-color);
+
+
+}
+
+
+body.dark-mode {
+    --bg-color: #1a1a1a;
+    --card-bg: #2d2d2d;
+    --text-color: #f0f0f0;
+    --primary-color: #72aee6;
+    --accent-color: #444444;
+    --card-shadow: 0 8px 25px rgba(133, 133, 133, 0.597);
+
+   /* --buttons-styling-variables*/
+
+    --btn-bg: var(--primary-color);
+    --btn-bg-hover: #ffffff; 
+    --btn-text: #1a1a1a; 
+
+    /*input variables*/
+
+    --input-bg: #3d3d3d;
+    --input-border: #555555;
+    --input-focus: var(--primary-color);
+
+}
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Courier New', Courier, monospace;
+    transition: all 0.3s ease;}
+    
+#themeBtn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+}
+#themeBtn:hover {
+    transform: scale(1.1);
+    background-color: var(--primary-color2);
+
+
+}
+#themeBtn:active {
+    transform: scale(0.9);
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: 400px;
+    padding: 15px;
+    border-radius: var(--border-radius);
+    box-shadow:var(--card-shadow);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    gap: 15px;
+}
+.container:hover{
+     box-shadow: 0 15px 30px rgba(166, 165, 165, 0.843);
+     transform: scale(1.01);
+     transition: all 0.3s ease-in-out;
+}
+
+.btn{
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    font-weight: bolder;
+}
+
+.btn:hover {
+    transform: scale(1.1);
+    background-color: var(--primary-color2);
+}
+
+.btn:active {
+    transform: scale(0.9);
+}
+input[type="number"] {
+    width: 100%;
+    height: 3rem;            
+    margin: 15px 0;        
+    border-radius: var(--border-radius);
+    border: 2px solid var(--input-border);
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    font-family: inherit;   
+    font-size: 1.2rem;       
+    text-align: center;     
+    outline: none;           
+    transition: all 0.3s ease;
+}
+
+
+input[type="number"]:focus {
+    border-color: var(--input-focus);
+    box-shadow: 0 0 8px rgba(74, 144, 226, 0.4); 
+    transform: scale(1.02); 
+}
+========================================
+FILE: ./06-sidebar-toggle/index.html
+========================================
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar Toggle</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dark-mode">
+    <div class="app-layout">
+
+        <button id="toggle-sidebar" class="icon-btn">
+            <img src="sidebar-right-svgrepo-com.svg" alt="toggle-expand-logo" id="toggleIcon" id="toggleIcon">
+        </button>
+
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+
+                <h1>Sidebar Toggle</h1>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Settings</a></li>
+                    <li><a href="#">Contacts</a></li>
+                </ul>
+            </nav>
+
+            <button id="themeBtn">Switch to Light Mode</button>
+
+        </aside>
+        <main class="content-area">
+
+        </main>
+
+
+
+
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
+========================================
+FILE: ./06-sidebar-toggle/script.js
+========================================
+const themeBtn = document.querySelector('#themeBtn');
+const toggleSidebar = document.querySelector('#toggle-sidebar');
+const sidebar = document.querySelector('#sidebar');
+const toggleIcon = document.querySelector('#toggleIcon')
+
+
+themeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+
+    if (document.body.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark');
+        themeBtn.textContent = 'Switch to Light Mode';
+
+    } else {
+        localStorage.setItem('theme', 'light');
+        themeBtn.textContent = 'Switch to Dark Mode';
+    }
+
+})
+
+toggleSidebar.addEventListener('click', () => {
+    sidebar.classList.toggle('collapsed');
+
+    if (sidebar.classList.contains('collapsed')) {
+
+        toggleIcon.style.transform = "rotate(0deg)";
+
+
+        
+    } else {toggleIcon.style.transform = "rotate(180deg)";
+        
+
+    }
+});
+
+
+========================================
+FILE: ./06-sidebar-toggle/style.css
+========================================
+ :root { 
+    --error-clr:#e74c3c;
+    --border-radius: 8px;
+    --font-main: 'Courier New', Courier, monospace;
+    --bg-color: #f4f4f9;
+    --card-bg: #ffffff;
+    --text-color: #333333;
+    --primary-color: #4a90e2;
+    --primary-color2:#3e89de;
+    --accent-color: #eeeeee;
+    --card-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    --tsn: all 0.3s ease-in-out;
+
+
+    /* --buttons-styling-variables*/
+
+    --btn-bg: var(--primary-color);
+    --btn-bg-hover: var(--primary-color2);
+    --btn-text: #ffffff;
+    --btn-padding: 10px 20px;
+    --btn-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --btn-transform: scale(1.1);
+    --btn2-transform: scale(0.9);
+   
+
+
+}
+
+
+body.dark-mode {
+    --bg-color: #1a1a1a;
+    --card-bg: #2d2d2d;
+    --text-color: #f0f0f0;
+    --primary-color: #72aee6;
+    --accent-color: #444444;
+    --card-shadow: 0 8px 25px rgba(133, 133, 133, 0.597);
+
+   /* --buttons-styling-variables*/
+
+    --btn-bg: var(--primary-color);
+    --btn-bg-hover: #ffffff; 
+    --btn-text: #1a1a1a; 
+
+ 
+
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+
+
+}
+
+#themeBtn {
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    padding: var(--btn-padding);
+    border-radius: var(--border-radius);
+    border: none;
+    transition: var(--tsn);
+
+
+}
+#themeBtn:hover{
+    background-color: var(--btn-bg-hover);
+    box-shadow: var(--btn-shadow);
+    cursor: pointer;
+    transform: var(--btn-transform);
+}
+
+#themeBtn:active{
+    transform: var(--btn2-transform);
+}
+
+ img {
+width: 2rem;
+height: 2rem;
+
+
+ }
+
+ nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;   
+
+
+}
+ nav ul li {
+    margin-bottom: 8px;
+ }
+
+ .sidebar ul li a {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-family: var(--font-main);
+    border-radius: var(--border-radius);
+    transition: var(--tsn); 
+    font-weight: 700;}
+
+    .sidebar ul li  a:hover {
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    padding-left: 20px;
+    
+    }
+
+    .sidebar ul li a.active {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    transform: var(--btn2-transform);
+}
+
+.sidebar {
+    width: 40vw;
+    height: 100vh;
+    transform: translateX(0);
+    transition: all 0.9s ease;
+    background-color: #1a1a1a;
+  
+    position: fixed;       
+    top: 0;
+    left: 0;
+    
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 10;
+
+
+
+
+}
+.sidebar.collapsed {
+   
+    transform: translateX(-100%);
+
+}
+
+
+#toggle-sidebar {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 20; 
+    background: var(--primary-color);
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+}
+========================================
+FILE: ./07-To-Do-List(State-driven)/index.html
+========================================
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard Todo</title>
+</head>
+
+<body>
+
+    <div class="app-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+
+            <button id="toggle-sidebar" class="icon-btn">
+                <i class='bx bx-menu'></i>
+            </button>
+
+            <div class="sidebar-header">
+                <span>Menu</span>
+            </div>
+
+            <nav class="sidebar-nav">
+
+                <ul>
+
+                    <li>
+                        <a href="#">
+                            <i class='bx bx-home'></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <i class='bx bx-cog'></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <i class='bx bx-user'></i>
+                            <span>Contacts</span>
+                        </a>
+                    </li>
+
+                </ul>
+
+            </nav>
+
+        </aside>
+
+        <!-- MAIN -->
+        <div class="main-wrapper">
+
+            <!-- NAVBAR -->
+            <nav class="top-navbar">
+
+                <div class="search-container">
+                    <input type="search" placeholder="Search">
+                </div>
+
+                <div class="nav-actions">
+
+                    <button id="themeBtn">
+                        <i class='bx bx-moon' id="themeIcon"></i>
+                    </button>
+
+                    <div class="account">
+                        Account
+                    </div>
+
+                </div>
+
+            </nav>
+
+            <!-- CONTENT -->
+            <main class="content-area">
+
+                <h1 class="app-header">To-Do Dashboard</h1>
+                <div class="todo-app">
+
+                    <ul id="taskList"></ul>
+
+                    <div class="bubble"> <textarea type="text" id="taskInput" placeholder="Add a task Here"></textarea>
+
+                        <button id="addTaskBtn"><i class="bx bx-plus" style="color:white; font-size: 40px ;
+                        "></i></button>
+                    </div>
+
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
+========================================
+FILE: ./07-To-Do-List(State-driven)/script.js
+========================================
+const sidebar = document.querySelector("#sidebar");
+const toggleBtn = document.querySelector("#toggle-sidebar");
+const themeBtn = document.querySelector("#themeBtn");
+const themeIcon = document.querySelector("#themeIcon");
+const taskInput = document.querySelector('#taskInput');
+const addTaskBtn = document.querySelector('#addTaskBtn');
+const taskList = document.querySelector('#taskList');
+
+
+
+/*state for data storage*/ 
+let tasks = [];
+
+
+
+/* SIDEBAR TOGGLE */
+
+toggleBtn.addEventListener("click", () => {
+
+sidebar.classList.toggle("collapsed")
+
+})
+
+/* THEME TOGGLE */
+
+themeBtn.addEventListener("click", () => {
+
+document.body.classList.toggle("dark-mode")
+
+if(document.body.classList.contains("dark-mode")){
+
+localStorage.setItem("theme","dark")
+
+themeIcon.classList.remove("bx-moon")
+themeIcon.classList.add("bx-sun")
+
+}else{
+
+localStorage.setItem("theme","light")
+
+themeIcon.classList.remove("bx-sun")
+themeIcon.classList.add("bx-moon")
+
+}
+
+})
+
+/* RESTORE THEME */
+
+const savedTheme = localStorage.getItem("theme")
+
+if(savedTheme === "dark"){
+
+document.body.classList.add("dark-mode")
+
+themeIcon.classList.remove("bx-moon")
+themeIcon.classList.add("bx-sun")
+
+}
+
+========================================
+FILE: ./07-To-Do-List(State-driven)/style.css
+========================================
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+
+    --bg-color: #f4f6f8;
+    --text-color: #1e272e;
+    --sidebar-bg: #2f3542;
+    --sidebar-hover: #57606f;
+    --navbar-bg: #ffffff;
+    --taskbar-bg: #000000;
+
+
+}
+
+.dark-mode {
+
+    --bg-color: #1e1e2f;
+    --text-color: #f1f2f6;
+    --sidebar-bg: #151522;
+    --sidebar-hover: #2c2c3a;
+    --navbar-bg: #2b2b3c;
+    --taskbar-bg: #313131;
+
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
+    height: 100vh;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+
+}
+
+.app-layout {
+    display: flex;
+    height: 100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    width: 250px;
+    background: var(--sidebar-bg);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    transition: 0.3s;
+}
+
+.sidebar.collapsed {
+    width: 70px;
+}
+
+.sidebar-header {
+    padding: 20px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+}
+
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    color: white;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.sidebar-nav a:hover {
+    background: var(--sidebar-hover);
+}
+
+.icon-btn {
+    border: none;
+    background: none;
+    color: white;
+    padding: 15px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+/* MAIN */
+
+.main-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* NAVBAR */
+
+.top-navbar {
+    height: 60px;
+    background: var(--navbar-bg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* SEARCH */
+
+.search-container input {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* NAV ACTIONS */
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-actions button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+/* CONTENT */
+
+.content-area {
+    flex: 1;
+    padding: 30px;
+}
+
+/* hide text when sidebar collapsed */
+
+.sidebar.collapsed span {
+    display: none;
+}
+
+/*for dark-mode button*/
+
+.nav-actions i {
+    color: white;
+    font-size: 22px;
+}
+
+.nav-actions i {
+    color: var(--text-color);
+}
+
+
+
+.bubble {
+    background-color: var(--sidebar-bg);
+    height: 4rem;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px 0 20px;
+    margin-top: auto;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+
+}
+
+.dark-mode .bubble {
+    background-color: var(--sidebar-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+
+}
+
+#taskInput {
+    flex: 1;
+    background: transparent;
+    position: sticky;
+    border: none;
+    outline: none;
+    height: 100%;
+    font-family: inherit;
+    font-size: 1rem;
+    color: white;
+    resize: none;
+    overflow-y: auto;
+    line-height: 1.4;
+    text-align: center;
+    padding-top: 1.2rem;
+   
+    overflow: hidden;
+
+
+
+}
+
+#taskInput::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+    opacity: 0.5;
+
+}
+
+
+#addTaskBtn {
+    height: 3.2rem;
+    width: 3.2rem;
+    border-radius: 50%;
+    border: none;
+    background-color: var(--taskbar-bg);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, background 0.2s;
+    font-weight: 600;
+}
+
+#addTaskBtn:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+.todo-app {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 150px);
+}
+
+#taskList {
+    overflow-y: auto;
+    flex: 1;
+    margin-bottom: 20px;
+}
+========================================
+FILE: ./08-Quiz-App/index.html
+========================================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz-App</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<nav class="navbar"></nav>
+<nav class="sidebar"></nav>
+<main></main>
+<footer></footer>
+
+
+
+    <script src="script.js"></script>
+</body>
+</html>
+========================================
+FILE: ./08-Quiz-App/script.js
+========================================
+
+========================================
+FILE: ./08-Quiz-App/style.css
+========================================
+
+========================================
+FILE: ./examples/example-pomodoro.html
+========================================
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEMPO — Focus Timer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Fraunces:ital,opsz,wght@0,9..144,100;0,9..144,700;1,9..144,300&display=swap"
+        rel="stylesheet">
+    <style>
+        /* ============================================================
+   CSS CUSTOM PROPERTIES (Variables)
+   — Change ONE value here, it updates EVERYWHERE on the page.
+   — This is the single most important CSS habit to build early.
+   ============================================================ */
+        :root {
+            /* Color palette */
+            --clr-bg: #0d0d0f;
+            --clr-surface: #16161a;
+            --clr-surface-2: #1e1e24;
+            --clr-border: rgba(255, 255, 255, 0.07);
+            --clr-text: #e8e6e1;
+            --clr-text-muted: rgba(232, 230, 225, 0.38);
+            --clr-accent: #c8a96e;
+            /* warm gold */
+            --clr-accent-dim: rgba(200, 169, 110, 0.12);
+            --clr-work: #c8a96e;
+            --clr-break: #7ec8a9;
+            --clr-long: #7ea9c8;
+            --clr-danger: #c87e7e;
+            --clr-ring-track: rgba(255, 255, 255, 0.05);
+
+            /* Typography */
+            --font-display: 'Fraunces', Georgia, serif;
+            --font-mono: 'DM Mono', 'Courier New', monospace;
+
+            /* Spacing — use multiples of this base */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 40px;
+            --space-2xl: 64px;
+
+            /* Border radius */
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-full: 9999px;
+
+            /* Transitions */
+            --transition-fast: 150ms ease;
+            --transition-base: 280ms ease;
+            --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+
+            /* Shadows */
+            --shadow-glow: 0 0 60px rgba(200, 169, 110, 0.08);
+            --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Mode-specific accent colors — swap with JS by setting data-mode on body */
+        body[data-mode="work"] {
+            --clr-accent: #c8a96e;
+            --clr-accent-dim: rgba(200, 169, 110, 0.12);
+        }
+
+        body[data-mode="break"] {
+            --clr-accent: #7ec8a9;
+            --clr-accent-dim: rgba(126, 200, 169, 0.12);
+        }
+
+        body[data-mode="long"] {
+            --clr-accent: #7ea9c8;
+            --clr-accent-dim: rgba(126, 169, 200, 0.12);
+        }
+
+
+        /* ============================================================
+   RESET — Strip browser default styles so YOU control everything
+   ============================================================ */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-mono);
+            background-color: var(--clr-bg);
+            color: var(--clr-text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-lg);
+            overflow-x: hidden;
+
+            /* Subtle grain texture on background — just a detail but makes a huge difference */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            transition: background-color var(--transition-slow);
+        }
+
+
+        /* ============================================================
+   LAYOUT
+   ============================================================ */
+        .app {
+            width: 100%;
+            max-width: 460px;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xl);
+            animation: fadeUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        /* ============================================================
+   HEADER
+   ============================================================ */
+        .header {
+            text-align: center;
+        }
+
+        .header__logo {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--clr-accent);
+            transition: color var(--transition-slow);
+        }
+
+        .header__tagline {
+            font-size: 0.7rem;
+            color: var(--clr-text-muted);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-top: var(--space-xs);
+        }
+
+
+        /* ============================================================
+   MODE TABS
+   ============================================================ */
+        .mode-tabs {
+            display: flex;
+            background: var(--clr-surface);
+            border: 1px solid var(--clr-border);
+            border-radius: var(--radius-full);
+            padding: 4px;
+            gap: 2px;
+        }
+
+        .mode-tab {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--clr-text-muted);
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            white-space: nowrap;
+        }
+
+        .mode-tab:hover {
+            color: var(--clr-text);
+            background: var(--clr-accent-dim);
+        }
+
+        .mode-tab.active {
+            background: var(--clr-accent-dim);
+            color: var(--clr-accent);
+            font-weight: 500;
+        }
+
+
+        /* ============================================================
+   TIMER CARD — The main piece
+   ============================================================ */
+        .timer-card {
+            background: var(--clr-surface);
+            border: 1px solid var(--clr-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-2xl) var(--space-xl);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+            transition: box-shadow var(--transition-slow);
+        }
+
+        /* Soft ambient glow behind the card */
+        .timer-card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            background: linear-gradient(135deg, var(--clr-accent-dim), transparent 60%);
+            pointer-events: none;
+            transition: background var(--transition-slow);
+        }
+
+
+        /* ============================================================
+   SVG RING — Animated progress circle
+   ============================================================ */
+        .ring-container {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            margin: 0 auto var(--space-xl);
+        }
+
+        .ring-svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+            /* Start from top */
+        }
+
+        .ring-track {
+            fill: none;
+            stroke: var(--clr-ring-track);
+            stroke-width: 3;
+        }
+
+        .ring-progress {
+            fill: none;
+            stroke: var(--clr-accent);
+            stroke-width: 3;
+            stroke-linecap: round;
+            /* stroke-dasharray and stroke-dashoffset are set by JS */
+            stroke-dasharray: 628;
+            /* 2 * PI * radius(100) */
+            stroke-dashoffset: 0;
+            transition: stroke-dashoffset 1s linear, stroke var(--transition-slow);
+        }
+
+        /* Timer display sits in the middle of the ring */
+        .ring-center {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .timer-display {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 100;
+            font-style: italic;
+            letter-spacing: -2px;
+            color: var(--clr-text);
+            line-height: 1;
+            /* Tabular numbers = digits don't jump in width */
+            font-variant-numeric: tabular-nums;
+            transition: color var(--transition-base);
+        }
+
+        .timer-label {
+            font-size: 0.62rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--clr-accent);
+            transition: color var(--transition-slow);
+        }
+
+
+        /* ============================================================
+   CONTROLS
+   ============================================================ */
+        .controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-md);
+        }
+
+        /* Base button — all buttons inherit from this */
+        .btn {
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-radius: var(--radius-full);
+            transition: all var(--transition-base);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+        }
+
+        .btn:active {
+            transform: scale(0.96);
+        }
+
+        /* Primary action (Play/Pause) */
+        .btn--primary {
+            background: var(--clr-accent);
+            color: var(--clr-bg);
+            padding: var(--space-md) var(--space-2xl);
+            font-size: 0.75rem;
+            font-weight: 500;
+            box-shadow: 0 4px 20px rgba(200, 169, 110, 0.3);
+            transition: all var(--transition-base);
+        }
+
+        .btn--primary:hover {
+            filter: brightness(1.1);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 28px rgba(200, 169, 110, 0.4);
+        }
+
+        /* Ghost / secondary button */
+        .btn--ghost {
+            background: transparent;
+            color: var(--clr-text-muted);
+            border: 1px solid var(--clr-border);
+            padding: var(--space-sm) var(--space-md);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+        }
+
+        .btn--ghost:hover {
+            color: var(--clr-text);
+            border-color: rgba(255, 255, 255, 0.15);
+            background: var(--clr-surface-2);
+        }
+
+
+        /* ============================================================
+   STATS ROW
+   ============================================================ */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+        }
+
+        .stat-card {
+            background: var(--clr-surface);
+            border: 1px solid var(--clr-border);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            text-align: center;
+            transition: border-color var(--transition-base);
+        }
+
+        .stat-card:hover {
+            border-color: var(--clr-accent);
+        }
+
+        .stat__value {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--clr-accent);
+            line-height: 1;
+            transition: color var(--transition-slow);
+        }
+
+        .stat__label {
+            font-size: 0.6rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--clr-text-muted);
+            margin-top: var(--space-xs);
+        }
+
+
+        /* ============================================================
+   SETTINGS PANEL
+   ============================================================ */
+        .settings-toggle {
+            text-align: center;
+        }
+
+        .settings-toggle-btn {
+            background: none;
+            border: none;
+            color: var(--clr-text-muted);
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: color var(--transition-base);
+            padding: var(--space-sm);
+        }
+
+        .settings-toggle-btn:hover {
+            color: var(--clr-accent);
+        }
+
+        .settings-panel {
+            background: var(--clr-surface);
+            border: 1px solid var(--clr-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg) var(--space-xl);
+            display: none;
+            flex-direction: column;
+            gap: var(--space-lg);
+            animation: fadeUp 0.3s ease both;
+        }
+
+        .settings-panel.open {
+            display: flex;
+        }
+
+        .settings-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-md);
+        }
+
+        .settings-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--clr-text-muted);
+        }
+
+        /* Number stepper input */
+        .stepper {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: var(--clr-surface-2);
+            border: 1px solid var(--clr-border);
+            border-radius: var(--radius-full);
+            padding: var(--space-xs) var(--space-sm);
+        }
+
+        .stepper__btn {
+            background: none;
+            border: none;
+            color: var(--clr-text-muted);
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            transition: all var(--transition-fast);
+            line-height: 1;
+        }
+
+        .stepper__btn:hover {
+            color: var(--clr-accent);
+            background: var(--clr-accent-dim);
+        }
+
+        .stepper__value {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--clr-text);
+            min-width: 28px;
+            text-align: center;
+        }
+
+        /* Toggle switch */
+        .toggle-switch {
+            position: relative;
+            width: 40px;
+            height: 22px;
+            cursor: pointer;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-track {
+            position: absolute;
+            inset: 0;
+            background: var(--clr-surface-2);
+            border: 1px solid var(--clr-border);
+            border-radius: var(--radius-full);
+            transition: all var(--transition-base);
+        }
+
+        .toggle-thumb {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 14px;
+            height: 14px;
+            background: var(--clr-text-muted);
+            border-radius: 50%;
+            transition: all var(--transition-base);
+        }
+
+        .toggle-switch input:checked~.toggle-track {
+            background: var(--clr-accent-dim);
+            border-color: var(--clr-accent);
+        }
+
+        .toggle-switch input:checked~.toggle-thumb {
+            left: 21px;
+            background: var(--clr-accent);
+        }
+
+
+        /* ============================================================
+   SESSION HISTORY — dot indicators
+   ============================================================ */
+        .session-dots {
+            display: flex;
+            gap: var(--space-sm);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--clr-surface-2);
+            border: 1px solid var(--clr-border);
+            transition: all var(--transition-base);
+        }
+
+        .dot.work {
+            background: var(--clr-work);
+            border-color: var(--clr-work);
+        }
+
+        .dot.break {
+            background: var(--clr-break);
+            border-color: var(--clr-break);
+        }
+
+        .dot.long {
+            background: var(--clr-long);
+            border-color: var(--clr-long);
+        }
+
+
+        /* ============================================================
+   NOTIFICATION TOAST
+   ============================================================ */
+        .toast {
+            position: fixed;
+            bottom: var(--space-xl);
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: var(--clr-surface-2);
+            border: 1px solid var(--clr-accent);
+            border-radius: var(--radius-full);
+            padding: var(--space-md) var(--space-xl);
+            font-size: 0.75rem;
+            letter-spacing: 0.08em;
+            color: var(--clr-accent);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+
+        /* ============================================================
+   FOCUS MODE — hides everything except timer when running
+   ============================================================ */
+        body.focus-mode .stats,
+        body.focus-mode .settings-toggle,
+        body.focus-mode .settings-panel,
+        body.focus-mode .session-dots,
+        body.focus-mode .header__tagline {
+            opacity: 0.15;
+            pointer-events: none;
+            transition: opacity var(--transition-slow);
+        }
+
+
+        /* ============================================================
+   RESPONSIVE — graceful on smaller screens
+   ============================================================ */
+        @media (max-width: 480px) {
+            .timer-display {
+                font-size: 3rem;
+            }
+
+            .ring-container {
+                width: 180px;
+                height: 180px;
+            }
+
+            .ring-progress {
+                stroke-dasharray: 502;
+            }
+
+            /* 2*PI*80 */
+            .timer-card {
+                padding: var(--space-xl) var(--space-lg);
+            }
+        }
+    </style>
+</head>
+
+<body data-mode="work">
+
+    <!-- ============================================================
+     HTML — Semantic, accessible, clean
+     Notice: every interactive element is a real <button>
+     Notice: meaningful IDs and classes — no "div1", "box", etc.
+     Notice: aria- attributes for accessibility
+     ============================================================ -->
+
+    <main class="app" role="main" aria-label="Focus Timer Application">
+
+        <!-- HEADER -->
+        <header class="header">
+            <p class="header__logo">TEMPO</p>
+            <p class="header__tagline">Deep work · one session at a time</p>
+        </header>
+
+        <!-- MODE SELECTOR -->
+        <nav class="mode-tabs" role="tablist" aria-label="Timer mode selection">
+            <button class="mode-tab active" role="tab" aria-selected="true" data-mode="work"
+                data-minutes="25">Focus</button>
+            <button class="mode-tab" role="tab" aria-selected="false" data-mode="break" data-minutes="5">Short
+                Break</button>
+            <button class="mode-tab" role="tab" aria-selected="false" data-mode="long" data-minutes="15">Long
+                Break</button>
+        </nav>
+
+        <!-- MAIN TIMER CARD -->
+        <section class="timer-card" aria-label="Timer">
+
+            <!-- SVG Ring Progress -->
+            <div class="ring-container" aria-hidden="true">
+                <svg class="ring-svg" viewBox="0 0 220 220">
+                    <circle class="ring-track" cx="110" cy="110" r="100" />
+                    <circle class="ring-progress" cx="110" cy="110" r="100" id="ring" />
+                </svg>
+                <div class="ring-center">
+                    <time class="timer-display" id="timer-display" aria-live="polite" aria-atomic="true">25:00</time>
+                    <span class="timer-label" id="timer-label">focus session</span>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls">
+                <button class="btn btn--ghost" id="btn-reset" aria-label="Reset timer" title="Reset">
+                    ↺
+                </button>
+                <button class="btn btn--primary" id="btn-play" aria-label="Start timer">
+                    ▶ &nbsp;Start
+                </button>
+                <button class="btn btn--ghost" id="btn-skip" aria-label="Skip to next session" title="Skip">
+                    ⇥
+                </button>
+            </div>
+
+        </section>
+
+        <!-- SESSION HISTORY DOTS -->
+        <div class="session-dots" id="session-dots" aria-label="Session history" role="list"></div>
+
+        <!-- STATS -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat__value" id="stat-sessions">0</div>
+                <div class="stat__label">Sessions</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat__value" id="stat-minutes">0</div>
+                <div class="stat__label">Min Focused</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat__value" id="stat-streak">0</div>
+                <div class="stat__label">Streak</div>
+            </div>
+        </div>
+
+        <!-- SETTINGS TOGGLE -->
+        <div class="settings-toggle">
+            <button class="settings-toggle-btn" id="settings-btn" aria-expanded="false" aria-controls="settings-panel">
+                ⚙ Settings
+            </button>
+        </div>
+
+        <!-- SETTINGS PANEL -->
+        <section class="settings-panel" id="settings-panel" aria-label="Timer settings">
+
+            <div class="settings-row">
+                <label class="settings-label">Focus Duration</label>
+                <div class="stepper">
+                    <button class="stepper__btn" data-target="work" data-dir="-1"
+                        aria-label="Decrease focus duration">−</button>
+                    <span class="stepper__value" id="setting-work">25</span>
+                    <button class="stepper__btn" data-target="work" data-dir="1"
+                        aria-label="Increase focus duration">+</button>
+                </div>
+            </div>
+
+            <div class="settings-row">
+                <label class="settings-label">Short Break</label>
+                <div class="stepper">
+                    <button class="stepper__btn" data-target="break" data-dir="-1"
+                        aria-label="Decrease short break">−</button>
+                    <span class="stepper__value" id="setting-break">5</span>
+                    <button class="stepper__btn" data-target="break" data-dir="1"
+                        aria-label="Increase short break">+</button>
+                </div>
+            </div>
+
+            <div class="settings-row">
+                <label class="settings-label">Long Break</label>
+                <div class="stepper">
+                    <button class="stepper__btn" data-target="long" data-dir="-1"
+                        aria-label="Decrease long break">−</button>
+                    <span class="stepper__value" id="setting-long">15</span>
+                    <button class="stepper__btn" data-target="long" data-dir="1"
+                        aria-label="Increase long break">+</button>
+                </div>
+            </div>
+
+            <div class="settings-row">
+                <label class="settings-label" for="toggle-sound">Sound Alerts</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="toggle-sound" checked>
+                    <span class="toggle-track"></span>
+                    <span class="toggle-thumb"></span>
+                </label>
+            </div>
+
+            <div class="settings-row">
+                <label class="settings-label" for="toggle-focus">Focus Mode</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="toggle-focus">
+                    <span class="toggle-track"></span>
+                    <span class="toggle-thumb"></span>
+                </label>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
+
+
+    <script>
+        /* ============================================================
+           JAVASCRIPT — Organised in clear sections
+           Read this top to bottom like a story.
+           ============================================================ */
+
+
+        /* ============================================================
+           1. CONFIGURATION
+           — All magic numbers live here. Never scatter them in code.
+           ============================================================ */
+        const CONFIG = {
+            modes: {
+                work: { label: 'focus session', minutes: 25 },
+                break: { label: 'short break', minutes: 5 },
+                long: { label: 'long break', minutes: 15 },
+            },
+            longBreakAfter: 4,   // sessions before a long break
+            ringCircumference: 628, // 2 * Math.PI * 100 (matches CSS)
+        };
+
+
+        /* ============================================================
+           2. STATE
+           — One object holds ALL app state. Makes debugging easy.
+           — Never spread state randomly across variables.
+           ============================================================ */
+        const state = {
+            mode: 'work',
+            isRunning: false,
+            totalSeconds: CONFIG.modes.work.minutes * 60,
+            remainingSeconds: CONFIG.modes.work.minutes * 60,
+            intervalId: null,
+            completedSessions: 0,
+            minutesFocused: 0,
+            streak: 0,
+            sessionHistory: [],   // array of 'work' | 'break' | 'long'
+            settings: {
+                work: 25,
+                break: 5,
+                long: 15,
+                sound: true,
+                focusMode: false,
+            },
+        };
+
+
+        /* ============================================================
+           3. DOM REFERENCES
+           — Grab all elements once at the top.
+           — Never call getElementById inside event handlers or loops.
+           ============================================================ */
+        const DOM = {
+            timerDisplay: document.getElementById('timer-display'),
+            timerLabel: document.getElementById('timer-label'),
+            ring: document.getElementById('ring'),
+            btnPlay: document.getElementById('btn-play'),
+            btnReset: document.getElementById('btn-reset'),
+            btnSkip: document.getElementById('btn-skip'),
+            modeTabs: document.querySelectorAll('.mode-tab'),
+            statSessions: document.getElementById('stat-sessions'),
+            statMinutes: document.getElementById('stat-minutes'),
+            statStreak: document.getElementById('stat-streak'),
+            sessionDots: document.getElementById('session-dots'),
+            settingsBtn: document.getElementById('settings-btn'),
+            settingsPanel: document.getElementById('settings-panel'),
+            stepperBtns: document.querySelectorAll('.stepper__btn'),
+            settingWork: document.getElementById('setting-work'),
+            settingBreak: document.getElementById('setting-break'),
+            settingLong: document.getElementById('setting-long'),
+            toggleSound: document.getElementById('toggle-sound'),
+            toggleFocus: document.getElementById('toggle-focus'),
+            toast: document.getElementById('toast'),
+        };
+
+
+        /* ============================================================
+           4. UTILITY FUNCTIONS
+           — Small, reusable, pure functions. Do one thing each.
+           ============================================================ */
+
+        /** Format seconds into MM:SS string */
+        function formatTime(seconds) {
+            const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const s = (seconds % 60).toString().padStart(2, '0');
+            return `${m}:${s}`;
+        }
+
+        /** Calculate ring progress (0 = full, circumference = empty) */
+        function calcRingOffset(remaining, total) {
+            const progress = remaining / total;
+            return CONFIG.ringCircumference * (1 - progress);
+        }
+
+        /** Show a toast message for a short duration */
+        function showToast(message, duration = 2800) {
+            DOM.toast.textContent = message;
+            DOM.toast.classList.add('show');
+            setTimeout(() => DOM.toast.classList.remove('show'), duration);
+        }
+
+        /** Play a soft beep using the Web Audio API (no audio file needed) */
+        function playBeep(type = 'end') {
+            if (!state.settings.sound) return;
+            try {
+                const ctx = new AudioContext();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                osc.type = 'sine';
+                osc.frequency.value = type === 'end' ? 528 : 440;
+                gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1);
+
+                osc.start(ctx.currentTime);
+                osc.stop(ctx.currentTime + 1);
+            } catch (e) {
+                // AudioContext blocked (no user interaction yet) — fail silently
+            }
+        }
+
+        /** Update the browser tab title */
+        function updatePageTitle() {
+            document.title = state.isRunning
+                ? `${formatTime(state.remainingSeconds)} — TEMPO`
+                : 'TEMPO — Focus Timer';
+        }
+
+
+        /* ============================================================
+           5. RENDER FUNCTIONS
+           — These READ from state and UPDATE the DOM.
+           — Never update the DOM directly in logic functions.
+           ============================================================ */
+
+        function renderTimer() {
+            DOM.timerDisplay.textContent = formatTime(state.remainingSeconds);
+            DOM.ring.style.strokeDashoffset = calcRingOffset(state.remainingSeconds, state.totalSeconds);
+            updatePageTitle();
+        }
+
+        function renderControls() {
+            DOM.btnPlay.innerHTML = state.isRunning
+                ? '⏸ &nbsp;Pause'
+                : '▶ &nbsp;' + (state.remainingSeconds < state.totalSeconds ? 'Resume' : 'Start');
+        }
+
+        function renderModeUI() {
+            document.body.setAttribute('data-mode', state.mode);
+            DOM.timerLabel.textContent = CONFIG.modes[state.mode].label;
+
+            DOM.modeTabs.forEach(tab => {
+                const isActive = tab.dataset.mode === state.mode;
+                tab.classList.toggle('active', isActive);
+                tab.setAttribute('aria-selected', isActive);
+            });
+        }
+
+        function renderStats() {
+            DOM.statSessions.textContent = state.completedSessions;
+            DOM.statMinutes.textContent = state.minutesFocused;
+            DOM.statStreak.textContent = state.streak;
+        }
+
+        function renderSessionDots() {
+            DOM.sessionDots.innerHTML = '';
+            state.sessionHistory.slice(-12).forEach(type => {
+                const dot = document.createElement('div');
+                dot.className = `dot ${type}`;
+                dot.setAttribute('role', 'listitem');
+                dot.setAttribute('aria-label', `${type} session completed`);
+                DOM.sessionDots.appendChild(dot);
+            });
+        }
+
+        /** Full re-render — call this any time state changes */
+        function render() {
+            renderTimer();
+            renderControls();
+            renderModeUI();
+            renderStats();
+            renderSessionDots();
+        }
+
+
+        /* ============================================================
+           6. CORE TIMER LOGIC
+           ============================================================ */
+
+        function startTimer() {
+            if (state.isRunning) return;
+            state.isRunning = true;
+
+            state.intervalId = setInterval(() => {
+                state.remainingSeconds--;
+
+                if (state.remainingSeconds <= 0) {
+                    onSessionComplete();
+                } else {
+                    renderTimer();
+                    updatePageTitle();
+                }
+            }, 1000);
+
+            renderControls();
+        }
+
+        function pauseTimer() {
+            if (!state.isRunning) return;
+            state.isRunning = false;
+            clearInterval(state.intervalId);
+            renderControls();
+        }
+
+        function resetTimer() {
+            pauseTimer();
+            state.remainingSeconds = state.totalSeconds;
+            render();
+        }
+
+        function onSessionComplete() {
+            pauseTimer();
+            playBeep('end');
+
+            // Record history
+            state.sessionHistory.push(state.mode);
+
+            if (state.mode === 'work') {
+                state.completedSessions++;
+                state.minutesFocused += state.settings.work;
+                state.streak++;
+
+                const isLongBreakTime = state.completedSessions % CONFIG.longBreakAfter === 0;
+                showToast(isLongBreakTime
+                    ? `🎉 ${CONFIG.longBreakAfter} sessions done! Take a long break.`
+                    : '✓ Session complete! Time for a short break.');
+
+                // Auto-switch mode
+                switchMode(isLongBreakTime ? 'long' : 'break');
+            } else {
+                showToast('Break over — back to focus!');
+                switchMode('work');
+            }
+
+            renderStats();
+            renderSessionDots();
+        }
+
+        function skipSession() {
+            pauseTimer();
+            state.sessionHistory.push(state.mode);
+            switchMode(state.mode === 'work'
+                ? (state.completedSessions % CONFIG.longBreakAfter === 0 ? 'long' : 'break')
+                : 'work');
+        }
+
+        function switchMode(newMode) {
+            state.mode = newMode;
+            state.totalSeconds = state.settings[newMode] * 60;
+            state.remainingSeconds = state.totalSeconds;
+            state.isRunning = false;
+            clearInterval(state.intervalId);
+            render();
+        }
+
+
+        /* ============================================================
+           7. SETTINGS LOGIC
+           ============================================================ */
+
+        function adjustSetting(target, direction) {
+            const limits = { work: [5, 90], break: [1, 30], long: [5, 60] };
+            const [min, max] = limits[target];
+
+            state.settings[target] = Math.min(max, Math.max(min,
+                state.settings[target] + direction
+            ));
+
+            // Update display
+            const displayEl = document.getElementById(`setting-${target}`);
+            if (displayEl) displayEl.textContent = state.settings[target];
+
+            // Update matching mode tab data
+            const tab = document.querySelector(`.mode-tab[data-mode="${target}"]`);
+            if (tab) tab.dataset.minutes = state.settings[target];
+
+            // If we're currently in this mode, update the timer too
+            if (state.mode === target && !state.isRunning) {
+                state.totalSeconds = state.settings[target] * 60;
+                state.remainingSeconds = state.totalSeconds;
+                renderTimer();
+            }
+        }
+
+
+        /* ============================================================
+           8. EVENT LISTENERS
+           — Grouped at the bottom, clearly separated.
+           — Each listener does ONE thing or calls a named function.
+           ============================================================ */
+
+        // Play / Pause
+        DOM.btnPlay.addEventListener('click', () => {
+            state.isRunning ? pauseTimer() : startTimer();
+        });
+
+        // Reset
+        DOM.btnReset.addEventListener('click', resetTimer);
+
+        // Skip
+        DOM.btnSkip.addEventListener('click', skipSession);
+
+        // Mode tabs
+        DOM.modeTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const newMode = tab.dataset.mode;
+                if (newMode !== state.mode) switchMode(newMode);
+            });
+        });
+
+        // Settings panel toggle
+        DOM.settingsBtn.addEventListener('click', () => {
+            const isOpen = DOM.settingsPanel.classList.toggle('open');
+            DOM.settingsBtn.setAttribute('aria-expanded', isOpen);
+            DOM.settingsBtn.textContent = isOpen ? '✕ Close' : '⚙ Settings';
+        });
+
+        // Stepper buttons (settings)
+        DOM.stepperBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                adjustSetting(btn.dataset.target, parseInt(btn.dataset.dir));
+            });
+        });
+
+        // Sound toggle
+        DOM.toggleSound.addEventListener('change', () => {
+            state.settings.sound = DOM.toggleSound.checked;
+        });
+
+        // Focus mode toggle
+        DOM.toggleFocus.addEventListener('change', () => {
+            state.settings.focusMode = DOM.toggleFocus.checked;
+            document.body.classList.toggle('focus-mode', state.settings.focusMode);
+            showToast(state.settings.focusMode ? 'Focus mode on — distractions hidden' : 'Focus mode off');
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Don't fire if user is typing in an input
+            if (e.target.tagName === 'INPUT') return;
+
+            switch (e.code) {
+                case 'Space':
+                    e.preventDefault();
+                    state.isRunning ? pauseTimer() : startTimer();
+                    break;
+                case 'KeyR':
+                    resetTimer();
+                    break;
+                case 'KeyS':
+                    skipSession();
+                    break;
+            }
+        });
+
+
+        /* ============================================================
+           9. INITIALISE
+           — Run once on page load to set the initial state.
+           ============================================================ */
+        render();
+
+    </script>
+</body>
+
+</html>
+========================================
+FILE: ./examples/script-template.js
+========================================
+/* =============================================
+   PROJECT NAME
+   What it does — one sentence description
+   ============================================= */
+
+
+/* =============================================
+   1. CONFIG
+   — Magic numbers and settings live here only.
+   — Change once, updates everywhere.
+   ============================================= */
+const CONFIG = {
+    // example: maxScore: 10,
+    // example: timerDuration: 60,
+};
+
+
+/* =============================================
+   2. STATE
+   — Everything your app needs to remember.
+   — One object. Never scattered variables.
+   ============================================= */
+const state = {
+    // example: isRunning: false,
+    // example: score: 0,
+};
+
+
+/* =============================================
+   3. DOM ELEMENTS
+   — Grab every element ONCE here at the top.
+   — Never use getElementById inside a function.
+   ============================================= */
+const DOM = {
+    // example: btn:     document.getElementById('btn'),
+    // example: display: document.querySelector('.display'),
+};
+
+
+/* =============================================
+   4. UTILITY FUNCTIONS
+   — Small, reusable helpers. Do ONE thing each.
+   — Pure: same input always gives same output.
+   ============================================= */
+
+// example:
+// function formatNumber(n) {
+//     return n.toString().padStart(2, '0');
+// }
+
+
+/* =============================================
+   5. RENDER FUNCTIONS
+   — Read from STATE → update the DOM.
+   — Never change state inside a render function.
+   ============================================= */
+
+function render() {
+    // update all DOM elements from current state
+}
+
+
+/* =============================================
+   6. LOGIC FUNCTIONS
+   — Change STATE only. Never touch the DOM.
+   — Call render() after changing state.
+   ============================================= */
+
+// example:
+// function increment() {
+//     state.score++;
+//     render();
+// }
+
+
+/* =============================================
+   7. EVENT LISTENERS
+   — All listeners grouped here at the bottom.
+   — Each one calls a named function, not inline logic.
+   ============================================= */
+
+// example:
+// DOM.btn.addEventListener('click', increment);
+
+
+/* =============================================
+   8. INIT
+   — Runs once on page load. Sets the initial UI.
+   ============================================= */
+render();
+
+
+========================================
+FILE: ./starter-template/css/style.css
+========================================
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #f5f6fa;
+    --text: #2f3640;
+    --sidebar: #2f3640;
+    --hover: #414b57;
+    --card: #ffffff;
+}
+
+.dark {
+    --bg: #1e1f2b;
+    --text: #f5f6fa;
+    --sidebar: #151622;
+    --hover: #2a2c3a;
+    --card: #2f3144;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
+}
+
+.layout {
+    display: flex;
+    height: 100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    width: 240px;
+    background: var(--sidebar);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    transition: 0.3s;
+}
+
+.sidebar.collapsed {
+    width: 70px;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.nav a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.nav a:hover {
+    background: var(--hover);
+}
+
+.nav span {
+    white-space: nowrap;
+    transition: 0.2s;
+}
+
+.sidebar.collapsed span {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+}
+
+.sidebar.collapsed a {
+    justify-content: center;
+}
+
+/* BUTTON */
+
+.icon-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    padding: 15px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+/* MAIN */
+
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* TOPBAR */
+
+.topbar {
+    height: 60px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 20px;
+    background: var(--card);
+    border-bottom: 1px solid #ddd;
+}
+
+/* CONTENT */
+
+.content {
+    flex: 1;
+    padding: 25px;
+}
+========================================
+FILE: ./starter-template/index.html
+========================================
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+
+            <button class="icon-btn" id="menuBtn">
+                <i class='bx bx-menu'></i>
+            </button>
+
+            <nav class="nav">
+                <a href="#"><i class='bx bx-home'></i><span>Home</span></a>
+                <a href="#"><i class='bx bx-grid-alt'></i><span>Apps</span></a>
+                <a href="#"><i class='bx bx-cog'></i><span>Settings</span></a>
+            </nav>
+
+        </aside>
+
+        <!-- MAIN -->
+        <div class="main">
+
+            <header class="topbar">
+                <div></div>
+
+                <button id="themeBtn">
+                    <i class='bx bx-moon' id="themeIcon"></i>
+                </button>
+            </header>
+
+            <main class="content" id="app">
+                <!-- Your app goes here -->
+            </main>
+
+        </div>
+
+    </div>
+
+    <script src="js/layout.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>
+========================================
+FILE: ./starter-template/js/app.js
+========================================
+// build your app here
+
+// example test
+console.log("app loaded")
+
+========================================
+FILE: ./starter-template/js/layout.js
+========================================
+const sidebar = document.querySelector("#sidebar")
+const menuBtn = document.querySelector("#menuBtn")
+
+const themeBtn = document.querySelector("#themeBtn")
+const themeIcon = document.querySelector("#themeIcon")
+
+/* SIDEBAR */
+
+menuBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("collapsed")
+})
+
+/* THEME */
+
+themeBtn.addEventListener("click", () => {
+
+    document.body.classList.toggle("dark")
+
+    if(document.body.classList.contains("dark")){
+        localStorage.setItem("theme","dark")
+        themeIcon.classList.replace("bx-moon","bx-sun")
+    }else{
+        localStorage.setItem("theme","light")
+        themeIcon.classList.replace("bx-sun","bx-moon")
+    }
+
+})
+
+/* RESTORE */
+
+const saved = localStorage.getItem("theme")
+
+if(saved === "dark"){
+    document.body.classList.add("dark")
+    themeIcon.classList.replace("bx-moon","bx-sun")
+}

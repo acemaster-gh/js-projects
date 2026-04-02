@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz-App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <ul>
+            <li>
+                <div><button id="dark-mode"><i>Dark mode</i></button></div>
+            </li>
+        </ul>
+    </nav>
+    <main>
+
+        <div class="quiz-wrapper">
+
+            <!-- SCREEN 1: Start -->
+            <div class="screen" id="screen-start">
+                <h1 class="header"> WANNA PLAY A QUIZ </h1>
+                <p class="description">This is a mini quiz that tests your basic common sense.</p>
+                <button id="start-btn">Start</button>
+            </div>
+
+
+            <!-- SCREEN 2: Quiz -->
+            <div class="screen hidden" id="screen-quiz">
+                <p id="progress-number">Progress:0/5</p>
+                <p id="quiz-score">Score: 0</p>
+                <div class="timer-container">
+                <h3>Countdown Timer : <span id="timer-display">05:00</span></h3>
+                </div>
+                <div class="que"><h3 id="question-text"></h3></div>
+                <div id="option-container"></div>
+            </div>
+
+            <!-- SCREEN 3: Results -->
+            <div class="screen hidden" id="screen-result">
+
+                <div class="score-card">
+                    <!-- result screen -->
+                    <span id="final-score">You scored 0 out of 5</span>
+                    <p class="msg">You did well wanna do another one?</p>
+                    <button class="restart" id="restart-btn">Restart</button>
+                </div>
+
+
+
+            </div>
+
+
+            <!-- SCREEN 4: POPUP : Explanation (hidden by default) -->
+            <div class="popup hidden" id="popup-explanation">
+                <div class="popup-card">
+                    <p id="popup-result-text">Correct</p>
+                    <p id="popup-explanation-text">Explanation goes here </p>
+                    <button id="next-btn">Next Question</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>

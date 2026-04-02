@@ -8,6 +8,9 @@ const taskList = document.querySelector('#taskList');
 
 
 
+/*state for data storage*/ 
+let tasks = [];
+
 
 
 /* SIDEBAR TOGGLE */
@@ -54,109 +57,3 @@ themeIcon.classList.remove("bx-moon")
 themeIcon.classList.add("bx-sun")
 
 }
-
-
-
-
-
-
-/* =========================
-   TODO APP — STATE & VALUE HANDLING
-========================= */
-
-
-// const addTask = () => {
-//   const taskText = input.value.trim();
-
-
-// }
-
-
-
-/* =========================
-   ADD TASK
-========================= */
-
-// function addTask()
-
-// function addTask() {
-    
-// }
-
-// read value from input
-
-// create task object
-
-// push task to tasks array
-
-// clear input
-
-// call renderTasks()
-
-
-
-/* =========================
-   RENDER TASKS
-========================= */
-
-// function renderTasks()
-
-// clear task list
-
-// loop through tasks
-
-// create li element
-
-// create checkbox
-
-// create task text
-
-// create delete button
-
-// append elements
-
-// add to task list
-
-
-
-/* =========================
-   TOGGLE TASK COMPLETE
-========================= */
-
-// when checkbox clicked
-
-// find task in array
-
-// toggle completed value
-
-// re-render tasks
-
-
-
-/* =========================
-   DELETE TASK
-========================= */
-
-// when delete button clicked
-
-// remove task from tasks array
-
-// re-render tasks
-
-
-
-/* =========================
-   EVENT LISTENERS
-========================= */
-
-// add click listener for add button
-
-// add enter key listener for input
-
-
-
-/* =========================
-   INITIAL RENDER
-========================= */
-
-// call renderTasks()

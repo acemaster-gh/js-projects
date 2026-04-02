@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="layout" id="layout">
+
+    <!-- ═══════════════════════════════════════
+         SIDEBAR
+    ═══════════════════════════════════════ -->
+    <aside class="sidebar" id="sidebar">
+
+      <div class="sidebar-top">
+        <div class="brand" id="brand">
+          <div class="brand-icon">
+            <i class='bx bx-layer'></i>
+          </div>
+          <span class="brand-name">Apex</span>
+        </div>
+        <button class="collapse-btn" id="collapseBtn" title="Toggle sidebar">
+          <i class='bx bx-chevrons-left' id="collapseIcon"></i>
+        </button>
+      </div>
+
+      <nav class="nav">
+        <div class="nav-label">Main</div>
+        <a href="#" class="nav-item active" data-label="Dashboard">
+          <i class='bx bx-grid-alt'></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="#" class="nav-item" data-label="Analytics">
+          <i class='bx bx-bar-chart-alt-2'></i>
+          <span>Analytics</span>
+        </a>
+        <a href="#" class="nav-item" data-label="Projects">
+          <i class='bx bx-folder'></i>
+          <span>Projects</span>
+          <span class="nav-badge">4</span>
+        </a>
+        <a href="#" class="nav-item" data-label="Calendar">
+          <i class='bx bx-calendar'></i>
+          <span>Calendar</span>
+        </a>
+
+        <div class="nav-label">Account</div>
+        <a href="#" class="nav-item" data-label="Messages">
+          <i class='bx bx-message-rounded'></i>
+          <span>Messages</span>
+          <span class="nav-badge dot"></span>
+        </a>
+        <a href="#" class="nav-item" data-label="Settings">
+          <i class='bx bx-cog'></i>
+          <span>Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="user-card">
+          <div class="user-avatar">AK</div>
+          <div class="user-info">
+            <div class="user-name">Ali Khan</div>
+            <div class="user-role">Developer</div>
+          </div>
+          <i class='bx bx-dots-horizontal-rounded user-more'></i>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- ═══════════════════════════════════════
+         MAIN
+    ═══════════════════════════════════════ -->
+    <div class="main" id="main">
+
+      <!-- TOPBAR -->
+      <header class="topbar">
+
+        <div class="topbar-left">
+          <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class='bx bx-menu'></i>
+          </button>
+          <div class="page-title" id="pageTitle">Dashboard</div>
+        </div>
+
+        <div class="topbar-right">
+
+          <div class="search-wrap">
+            <i class='bx bx-search'></i>
+            <input type="text" placeholder="Search anything…" class="search-input">
+            <span class="search-shortcut">⌘K</span>
+          </div>
+
+          <button class="icon-action" id="themeBtn" title="Toggle theme">
+            <i class='bx bx-moon' id="themeIcon"></i>
+          </button>
+
+          <button class="icon-action notif-btn">
+            <i class='bx bx-bell'></i>
+            <span class="notif-dot"></span>
+          </button>
+
+          <div class="topbar-avatar">AK</div>
+
+        </div>
+
+      </header>
+
+      <!-- CONTENT -->
+      <main class="content" id="app">
+
+        <!-- STATS ROW -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon teal"><i class='bx bx-trending-up'></i></div>
+            <div class="stat-body">
+              <div class="stat-value">$24,580</div>
+              <div class="stat-label">Total Revenue</div>
+              <div class="stat-change positive"><i class='bx bx-up-arrow-alt'></i> 12.4% this month</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon blue"><i class='bx bx-user-check'></i></div>
+            <div class="stat-body">
+              <div class="stat-value">1,284</div>
+              <div class="stat-label">Active Users</div>
+              <div class="stat-change positive"><i class='bx bx-up-arrow-alt'></i> 8.1% this month</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon amber"><i class='bx bx-box'></i></div>
+            <div class="stat-body">
+              <div class="stat-value">342</div>
+              <div class="stat-label">Orders</div>
+              <div class="stat-change negative"><i class='bx bx-down-arrow-alt'></i> 3.2% this month</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon purple"><i class='bx bx-star'></i></div>
+            <div class="stat-body">
+              <div class="stat-value">98.2%</div>
+              <div class="stat-label">Satisfaction</div>
+              <div class="stat-change positive"><i class='bx bx-up-arrow-alt'></i> 1.0% this month</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MIDDLE ROW -->
+        <div class="mid-grid">
+
+          <!-- RECENT ACTIVITY -->
+          <div class="card activity-card">
+            <div class="card-header">
+              <div class="card-title">Recent Activity</div>
+              <button class="card-action">View all</button>
+            </div>
+            <div class="activity-list">
+              <div class="activity-item">
+                <div class="activity-dot teal"></div>
+                <div class="activity-body">
+                  <div class="activity-text">New user <strong>Sarah M.</strong> signed up</div>
+                  <div class="activity-time">2 min ago</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-dot blue"></div>
+                <div class="activity-body">
+                  <div class="activity-text">Order <strong>#3842</strong> shipped successfully</div>
+                  <div class="activity-time">18 min ago</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-dot amber"></div>
+                <div class="activity-body">
+                  <div class="activity-text">Payment for <strong>Pro Plan</strong> received</div>
+                  <div class="activity-time">1 hr ago</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-dot purple"></div>
+                <div class="activity-body">
+                  <div class="activity-text">Server deployment <strong>v2.4.1</strong> complete</div>
+                  <div class="activity-time">3 hr ago</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-dot teal"></div>
+                <div class="activity-body">
+                  <div class="activity-text"><strong>Ali Khan</strong> updated project settings</div>
+                  <div class="activity-time">5 hr ago</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PROJECTS -->
+          <div class="card projects-card">
+            <div class="card-header">
+              <div class="card-title">Active Projects</div>
+              <button class="card-action">+ New</button>
+            </div>
+            <div class="project-list">
+              <div class="project-item">
+                <div class="project-color" style="--c:#4ecdc4"></div>
+                <div class="project-info">
+                  <div class="project-name">Website Redesign</div>
+                  <div class="project-progress-bar"><div class="project-fill" style="width:72%;--fc:#4ecdc4"></div></div>
+                </div>
+                <div class="project-pct">72%</div>
+              </div>
+              <div class="project-item">
+                <div class="project-color" style="--c:#667eea"></div>
+                <div class="project-info">
+                  <div class="project-name">Mobile App</div>
+                  <div class="project-progress-bar"><div class="project-fill" style="width:45%;--fc:#667eea"></div></div>
+                </div>
+                <div class="project-pct">45%</div>
+              </div>
+              <div class="project-item">
+                <div class="project-color" style="--c:#f6ad55"></div>
+                <div class="project-info">
+                  <div class="project-name">API Integration</div>
+                  <div class="project-progress-bar"><div class="project-fill" style="width:91%;--fc:#f6ad55"></div></div>
+                </div>
+                <div class="project-pct">91%</div>
+              </div>
+              <div class="project-item">
+                <div class="project-color" style="--c:#fc8181"></div>
+                <div class="project-info">
+                  <div class="project-name">Dashboard v3</div>
+                  <div class="project-progress-bar"><div class="project-fill" style="width:18%;--fc:#fc8181"></div></div>
+                </div>
+                <div class="project-pct">18%</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- PLACEHOLDER — your app goes here -->
+        <div class="card app-placeholder" id="appContent">
+          <div class="placeholder-inner">
+            <i class='bx bx-code-block placeholder-icon'></i>
+            <div class="placeholder-text">Your app renders here</div>
+            <div class="placeholder-sub">Replace this card with your JS project content</div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+
+  </div>
+
+  <!-- MOBILE OVERLAY -->
+  <div class="overlay" id="overlay"></div>
+
+  <script src="layout.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>
