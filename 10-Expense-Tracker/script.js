@@ -15,7 +15,8 @@ const DOM = {
   transactionList: document.querySelector('#transaction-list'),
   transactionType: document.querySelector('input[name="type"]:checked'),
   incomeRadio: document.querySelector('#income-radio'),
-  expenseRadio: document.querySelector('#expense-radio')
+  expenseRadio: document.querySelector('#expense-radio'),
+  darkModeBtn: document.querySelector('#darkmodebtn'),
 }
 
 //3. RENDER FUNCTION
@@ -66,30 +67,70 @@ function render () {
 
   //updating DOM based on above
 
-  DOM.totalIncome.textContent = `$${totalIncome}`;
-  DOM.totalExpense.textContent = `$${totalExpense}`;
-  DOM.balanceAmount.textContent = `$${balance}`;
+  DOM.totalIncome.textContent = `$${totalIncome}`
+  DOM.totalExpense.textContent = `$${totalExpense}`
+  DOM.balanceAmount.textContent = `$${balance}`
 
   DOM.transactionList.innerHTML = ''
-  state.transactions.forEach(t => {
+
+  state.transactions.forEach(function (t) {
     const li = document.createElement('li')
-    li.textContent = `${t.description}: $${t.amount} (${t.type})`
+
+    li.textContent = `${t.description} : $${t.amount} (${t.type})`
+
+    // adding delete button on every transaction
+    const deleteBtn = document.createElement('button')
+    deleteBtn.textContent = 'Delete Transaction'
+
+    deleteBtn.addEventListener('click', () => {
+      state.transactions = state.transactions.filter(tx => tx.id !== t.id);
+      render();
+    });
+
+    li.appendChild(deleteBtn)
     DOM.transactionList.appendChild(li)
   })
 }
-
-
-//EVENT LISTENER
+//4. EVENT LISTENER
 
 DOM.addBtn.addEventListener('click', () => {
-
   const desc = DOM.amountDescription.value
   const amt = Number(DOM.amountValue.value) // Convert string to a number!
   const type = document.querySelector('input[name="type"]:checked').value
+  if (!desc || amt <= 0) {
+    alert('Enter valid data')
+    return
+  }
 
+// add crypto.randomUUID to state objects or the transactions 
+ state.transactions.push({
+  id: crypto.randomUUID(),
+  description: desc,
+  amount:amt,
+  type: type,
 
-  state.transactions.push({ description: desc, amount: amt, type: type })
-
+ });
+  DOM.amountDescription.value = ''
+  DOM.amountValue.value = ''
 
   render()
 })
+
+// darkmode event listener
+
+// DOM.darkModeBtn.addEventListener('click' , () => {
+//   document.body.classList.toggle('dark-mode');
+//   if (document.body.classList.contains('dark-mode')) {
+//     DOM.darkModeBtn.textContent = "Light Mode";    
+//   } else {
+//     DOM.darkModeBtn.textContent = "Dark Mode";
+//   }
+
+// });
+
+// or we can use this one 
+DOM.darkModeBtn.addEventListener('click', ( ) => {
+const isDark = document.body.classList.toggle('dark-mode');
+DOM.darkModeBtn.textContent = isDark ? "Light Mode" : "Dark Mode"
+localStorage.setItem('darkModeBtn', isDark)
+});
