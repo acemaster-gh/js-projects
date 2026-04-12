@@ -1,0 +1,145 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #0a0a0a;
+    --card: #141414;
+    --text: #ffffff;
+    --text-muted: #666666;
+    --accent: #00ff88;
+    --border: #222222;
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Courier New', monospace;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    width: 90%;
+    max-width: 480px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+h1 {
+    font-size: 1.2rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+/* TIME DISPLAY */
+#timer-display {
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    font-family: 'Courier New', monospace;
+}
+
+/* BUTTONS */
+.btn-group {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-muted);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-family: 'Courier New', monospace;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    letter-spacing: 0.05em;
+}
+
+button:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+#start {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+#addlap {
+    border-color: #6366f1;
+    color: #6366f1;
+}
+
+#reset {
+    border-color: #ef4444;
+    color: #ef4444;
+}
+
+#start:hover {
+    background: var(--accent);
+    color: #000;
+}
+
+#addlap:hover {
+    background: #6366f1;
+    color: #fff;
+}
+
+#reset:hover {
+    background: #ef4444;
+    color: #fff;
+}
+
+hr {
+    width: 100%;
+    border: none;
+    border-top: 1px solid var(--border);
+}
+
+/* LAPS */
+h2 {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    align-self: flex-start;
+}
+
+#lap-list {
+    list-style: none;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#lap-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
